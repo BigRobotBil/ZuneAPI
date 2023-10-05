@@ -1,4 +1,4 @@
-package me.hyname.image;
+package me.hyname.route.image;
 
 import spark.Request;
 import spark.Response;

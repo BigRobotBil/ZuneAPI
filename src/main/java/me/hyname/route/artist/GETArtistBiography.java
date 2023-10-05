@@ -1,4 +1,4 @@
-package me.hyname.artist;
+package me.hyname.route.artist;
 
 import spark.Request;
 import spark.Response;
@@ -9,10 +9,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class GETArtistImages implements Route {
+public class GETArtistBiography implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        File file = new File("data/" + request.params(":id") + "/images.xml");
+        File file = new File("data/" + request.params(":id") + "/biography.xml");
         response.type("text/xml");
         InputStream is = new FileInputStream(file);
 

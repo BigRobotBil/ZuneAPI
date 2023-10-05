@@ -1,4 +1,4 @@
-package me.hyname.album;
+package me.hyname.route.image;
 
 import spark.Request;
 import spark.Response;
@@ -9,11 +9,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class GETAlbumImage implements Route {
+public class GETPrimaryImageRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        File file = new File("image/other/" + request.params(":id") + ".jpg");
+        File file = new File("image/primary/" + request.params(":id").toLowerCase() + ".jpg");
         response.type("image/jpeg");
         InputStream is = new FileInputStream(file);
 

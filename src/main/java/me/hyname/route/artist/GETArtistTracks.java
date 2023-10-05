@@ -1,34 +1,31 @@
-package me.hyname.artist;
+package me.hyname.route.artist;
 
 import me.hyname.Main;
-import me.hyname.model.Artist;
-import me.hyname.store.ArtistStorage;
+import me.hyname.model.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.utils.IOUtils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 
-public class GETArtistOverview2 implements Route {
+public class GETArtistTracks implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
 
         response.type("text/xml");
         response.raw().setContentType("text/xml");
-        JAXBContext contextObj = JAXBContext.newInstance(Artist.class);
+        JAXBContext contextObj = JAXBContext.newInstance(Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
 
         Marshaller marshallerObj = contextObj.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        Artist que= ArtistStorage.taylorSwift;
-        Artist que = Main.getStorage().readArtist(request.params(":id").toLowerCase());
+        Artist artist = Main.getStorage().readArtist(request.params(":id").toLowerCase());
+        Feed<Track> que=  new Feed<>();
+        que.setEntries(Main.getStorage().readTracksByArtist(artist));
+
         marshallerObj.marshal(que, baos);
 
         System.out.println(request.url() + " | " + request.contextPath() + " | " + request.params() + " | " + request.queryParams() + " | " + request.queryString());

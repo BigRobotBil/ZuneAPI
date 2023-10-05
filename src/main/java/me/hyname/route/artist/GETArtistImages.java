@@ -1,4 +1,4 @@
-package me.hyname.image;
+package me.hyname.route.artist;
 
 import spark.Request;
 import spark.Response;
@@ -9,15 +9,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class GETArtistThumbnailImage implements Route {
-
+public class GETArtistImages implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        File file = new File("image/" + request.params(":id") + ".jpg");
-        response.type("image/jpeg");
+        File file = new File("data/" + request.params(":id") + "/images.xml");
+        response.type("text/xml");
         InputStream is = new FileInputStream(file);
 
-        response.raw().setContentType("image/jpeg");
+        response.raw().setContentType("text/xml");
         response.raw().setHeader("Content-Disposition", "inline; filename=" + file.getName());
 
         byte[] buffer = new byte[1024];

@@ -1,4 +1,4 @@
-package me.hyname.artist;
+package me.hyname.route.artist;
 
 import me.hyname.Main;
 import me.hyname.model.Artist;

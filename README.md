@@ -1,4 +1,4 @@
-![Frame 48](https://github.com/hynamedev/ZuneAPI/assets/89894310/761bd3c6-b8a3-4050-8fa1-26377d3f6949)
+![Zune API Header](https://github.com/hynamedev/ZuneAPI/assets/89894310/761bd3c6-b8a3-4050-8fa1-26377d3f6949)
 This project is an ongoing effort to recreate the backend API of the now-defunct Zune music service. Please note that this is a **work in progress** and nowhere ready for production. Zune was a media software and streaming service developed by Microsoft, which was discontinued in ~2011. This project is an attempt to bring back parts of the functionality of the Zune backend API.
 
 ## Table of Contents
@@ -19,7 +19,24 @@ To get started with this Java project, follow these steps:
    cd ZuneAPI
    ```
 
-TODO: finish writing these
+2. Start & setup your Mongo Database
+   ```bash
+   sudo apt-get install -y mongodb-org
+   sudo systemctl start mongod
+   ```
+   
+3. Move artist images into the `/images` folder
+   ```bash
+   sudo mkdir /images
+   sudo mv /path/to/images/* /images
+   ```
+
+4. Build Server using Mavn & run
+   ```bash
+   mvn package
+   java -jar target/ZuneAPI-1.0-SNAPSHOT.jar
+   ```
+
 
 ## Dependencies
 
@@ -32,7 +49,7 @@ The project relies on various Java libraries and technologies, including but not
 
 ## Contributing
 
-TODO
+Contributions are welcome! Please feel free to submit a pull request or open an issue if you have any questions or suggestions.
 
 ## License
 

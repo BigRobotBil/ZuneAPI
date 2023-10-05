@@ -1,15 +1,13 @@
 package me.hyname;
 
 import lombok.Getter;
-import me.hyname.album.GETAlbumImage;
-import me.hyname.album.GETAlbumOverview;
-import me.hyname.artist.*;
-import me.hyname.image.GETArtistThumbnailImage;
-import me.hyname.image.GETBackgroundImage;
-import me.hyname.image.GETPrimaryImageRoute;
+import me.hyname.route.image.GETOtherImage;
+import me.hyname.route.album.GETAlbumOverview;
+import me.hyname.route.artist.*;
+import me.hyname.route.image.GETBackgroundImage;
+import me.hyname.route.image.GETPrimaryImageRoute;
 import me.hyname.storage.Storage;
 import me.hyname.storage.impl.MongoStorage;
-import me.hyname.store.ArtistStorage;
 import spark.Spark;
 
 /**
@@ -36,7 +34,7 @@ public class Main {
         (storage = new MongoStorage("127.0.0.1", 27017)).init();
         Spark.port(80);
 
-        Spark.get("/v3.2/image/:id", new GETAlbumImage());
+        Spark.get("/v3.2/image/:id", new GETOtherImage());
 
         // Artist Image Routes //
         Spark.get("/v3.2/en-US/music/artist/:id/images/", new GETArtistImages()); // TODO: Redo
