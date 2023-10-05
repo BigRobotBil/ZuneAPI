@@ -39,9 +39,9 @@ public class Artist {
 
     @XmlElement(name = "biographyLink")
     private String biographyLink;
-
-    @XmlElement(name = "biography")
-    private String biography;
+//
+//    @XmlElement(name = "biography")
+//    private String biography;
 
     @XmlElement(name = "shortBiography")
     private String shortBiography;
@@ -59,9 +59,6 @@ public class Artist {
     @XmlElementWrapper(name = "moods")
     @XmlElement(name = "mood")
     private List<Mood> moods;
-
-    //@XmlElement(name = "latestAlbumImage")
-    private Image albumImage;
 
     @XmlElement(name = "backgroundImage")
     private MiniImage backgroundImage;
@@ -83,7 +80,7 @@ public class Artist {
         toDb.put("popularity", this.popularity);
         toDb.put("isVariousArtist", this.isVariousArtist);
         toDb.put("biographyLink", this.biographyLink);
-        toDb.put("biography", this.biography);
+        //toDb.put("biography", this.biography);
         toDb.put("shortBiography", this.shortBiography);
         toDb.put("playCount", this.playCount);
         toDb.put("primaryGenre", this.primaryGenre.toMongo());
@@ -101,7 +98,6 @@ public class Artist {
         }
 
         toDb.put("moods", moodArray);
-        toDb.put("albumImage", this.albumImage.toMongo());
         toDb.put("backgroundImage", this.backgroundImage.toMongo());
         toDb.put("hasRadioChannel", this.hasRadioChannel);
 

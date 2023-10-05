@@ -24,11 +24,7 @@ public class GETArtistTracks implements Route {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Artist artist = Main.getStorage().readArtist(request.params(":id").toLowerCase());
         Feed<Track> que=  new Feed<>();
-
         que.setEntries(Main.getStorage().readTracksByArtist(artist));
-
-
-
 
         marshallerObj.marshal(que, baos);
 

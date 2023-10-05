@@ -48,7 +48,6 @@ public class Track {
     @XmlElement(name = "PointsPrice")
     public int pointsPrice;
 
-
     @XmlElement(name = "CanPlay")
     public boolean canPlay;
 

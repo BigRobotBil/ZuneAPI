@@ -17,11 +17,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-/**
- * MongoDB Storage Implementation
- * @see me.hyname.storage.Storage
- * @author hyname
- */
 public class MongoStorage extends Storage {
 
     @Getter private String host;
@@ -95,13 +90,12 @@ public class MongoStorage extends Storage {
                         readDocument.getDouble("popularity"),
                         readDocument.getBoolean("isVariousArtist"),
                         readDocument.getString("biographyLink"),
-                        readDocument.getString("biography"),
+                   //     readDocument.getString("biography"),
                         readDocument.getString("shortBiography"),
                         readDocument.getInteger("playCount"),
                         Genre.fromMongo(readDocument.get("primaryGenre", Document.class)),
                         genres,
                         moods,
-                        Image.fromMongo(readDocument.get("albumImage", Document.class)),
                         MiniImage.fromMongo(readDocument.get("backgroundImage", Document.class)),
                         readDocument.getBoolean("hasRadioChannel"),
                         images
@@ -170,7 +164,7 @@ public class MongoStorage extends Storage {
     public boolean saveAlbum(Album album) {
         try {
             Document doc = album.toMongo();
-            Document searchedDocument = albumCollection.find(Filters.eq("id", UUID.fromString(doc.getString("id")))).first();
+            Document searchedDocument = albumCollection.find(Filters.eq("id", doc.getString("id"))).first();
             boolean exists = searchedDocument != null;
 
             if(!exists)
@@ -199,7 +193,7 @@ public class MongoStorage extends Storage {
 
         List<MiniTrack> tracks = new ArrayList<>();
         for (Document d : readDocument.getList("tracks", Document.class)) {
-            tracks.add(new MiniTrack(d.getString("title"), d.getString("sortTitle"), UUID.fromString(d.getString("id")), d.getInteger("trackNumber")));
+            tracks.add(MiniTrack.fromMongo(d));
         }
 
         Album returnValue =

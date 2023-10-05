@@ -8,16 +8,8 @@ import java.util.List;
 import java.util.UUID;
 
 
-/**
- * Storage Class
- * @author hyname
- */
 public abstract class Storage {
 
-    /**
-     * Initialization method for storage impl
-     * (ie: connecting to MongoDB)
-     */
     public abstract void init();
 
     public abstract boolean saveArtist(Artist artist);

@@ -1,6 +1,6 @@
 package me.hyname.model;
 
-public class Constants {
+public class  Constants {
     public static String OPENSEARCH_NAMESPACE = "http://a9.com/-/spec/opensearch/1.1/";
     public static String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
 

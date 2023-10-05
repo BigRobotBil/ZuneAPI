@@ -1,0 +1,27 @@
+package me.hyname.model;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
+import java.util.UUID;
+
+@XmlRootElement(name = "entry", namespace = "http://www.w3.org/2005/Atom")
+public class Biography {
+    @XmlElement(name = "updated")
+    Date updated;
+
+    @XmlElement(name = "title")
+    String title;
+
+    @XmlElement(name = "id")
+    UUID id;
+    @XmlElement(name = "content")
+    String content;
+
+    @XmlElementWrapper(name = "author")
+    @XmlElement(name = "name")
+    String author;
+}
+
+// todo: aeiuhhgh

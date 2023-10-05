@@ -13,7 +13,7 @@ public class GETBackgroundImage implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        File file = new File("data/" + request.params(":id") + "/7.jpg");
+        File file = new File("image/background/" + request.params(":id") + ".jpg");
         response.type("image/jpeg");
         InputStream is = new FileInputStream(file);
 
