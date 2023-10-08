@@ -19,8 +19,8 @@ public class Feature {
     @XmlElement(name = "title")
     private String title;
 
-    @XmlElement(name = "text")
-    private String text;
+    @XmlElement(name = "content")
+    private String content;
 
     @XmlElement(name = "sequenceNumber")
     private int sequenceNumber;

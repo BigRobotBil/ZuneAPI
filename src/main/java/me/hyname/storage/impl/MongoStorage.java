@@ -109,7 +109,7 @@ public class MongoStorage extends Storage {
     public boolean saveTrack(Track track) {
         try {
             Document doc = track.toMongo();
-            Document searchedDocument = trackCollection.find(Filters.eq("id", doc.get("id", UUID.class))).first();
+            Document searchedDocument = trackCollection.find(Filters.eq("id", doc.getString("id"))).first();
             boolean exists = searchedDocument != null;
 
             if(!exists)
@@ -127,7 +127,7 @@ public class MongoStorage extends Storage {
     @Override
     public Track readTrack(String id) {
         UUID uuid = UUID.fromString(id);
-        Document readDocument = trackCollection.find(Filters.eq("id", uuid)).first();
+        Document readDocument = trackCollection.find(Filters.eq("id", uuid.toString())).first();
 
         if (readDocument == null) throw new NullPointerException("Requested document \"" + id + "\" does not exist!");
 
@@ -135,7 +135,7 @@ public class MongoStorage extends Storage {
                 new Track(
                         readDocument.getString("sortTitle"),
                         readDocument.getString("title"),
-                        readDocument.get("id", UUID.class),
+                        UUID.fromString(readDocument.getString("id")),
                         readDocument.getInteger("lengthSeconds"),
                         readDocument.getInteger("trackNumber"),
                         readDocument.getInteger("discNumber"),
@@ -246,6 +246,18 @@ public class MongoStorage extends Storage {
 
         documents.forEach((Consumer<? super Document>)  document -> {
             finalOutput.add(readAlbum(document.getString("id")));
+        });
+
+        return finalOutput;
+    }
+
+    @Override
+    public List<Track> getTracks() {
+        List<Track> finalOutput = new ArrayList<>();
+        FindIterable<Document> documents = trackCollection.find();
+
+        documents.forEach((Consumer<? super Document>)  document -> {
+            finalOutput.add(readTrack(document.getString("id")));
         });
 
         return finalOutput;

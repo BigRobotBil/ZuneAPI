@@ -15,10 +15,10 @@ import java.util.UUID;
 @XmlRootElement(name = "entry")
 public class Track {
 
-    @XmlElement(name = "sortTitle")
+    @XmlElement(name = "title")
     public String sortTitle;
 
-    @XmlElement(name = "title")
+    @XmlElement(name = "sortTitle")
     public String title;
 
     @XmlElement(name = "id")
@@ -78,7 +78,7 @@ public class Track {
     public Document toMongo() {
         Document toDb = new Document();
         toDb.put("sortTitle", this.sortTitle);
-        toDb.put("id", this.id);
+        toDb.put("id", this.id.toString());
         toDb.put("lengthSeconds", this.lengthSeconds);
         toDb.put("trackNumber", this.trackNumber);
         toDb.put("discNumber", this.discNumber);

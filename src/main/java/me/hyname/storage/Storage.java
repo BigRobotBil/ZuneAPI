@@ -28,4 +28,6 @@ public abstract class Storage {
     public abstract List<Track> readTracksByArtist(Artist artist);
 
     public abstract List<Album> getAlbums();
+
+    public abstract List<Track> getTracks();
 }
