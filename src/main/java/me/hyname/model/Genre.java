@@ -31,10 +31,14 @@ public enum Genre {
     ELECTRONICA("electronica", "Electronica");
 
     @XmlElement(name = "id")
+    public
     String id;
 
     @XmlElement(name = "title")
+    public
     String title;
+
+
 
     Genre(String id, String title) {
         this.id = id;
@@ -58,4 +62,6 @@ public enum Genre {
 
         return document;
     }
+
+
 }

@@ -1,6 +1,12 @@
 package me.hyname;
 
 import lombok.Getter;
+import me.hyname.model.*;
+import me.hyname.route.chart.GETAlbumCharts;
+import me.hyname.route.chart.GETTrackCharts;
+import me.hyname.route.featured.GETFeaturedAlbums;
+import me.hyname.route.featured.GETFeatures;
+import me.hyname.route.genre.GETGenres;
 import me.hyname.route.image.GETOtherImage;
 import me.hyname.route.album.GETAlbumOverview;
 import me.hyname.route.artist.*;
@@ -8,7 +14,15 @@ import me.hyname.route.image.GETBackgroundImage;
 import me.hyname.route.image.GETPrimaryImageRoute;
 import me.hyname.storage.Storage;
 import me.hyname.storage.impl.MongoStorage;
+import me.hyname.store.ArtistStorage;
 import spark.Spark;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Zune API Checklist:
@@ -32,6 +46,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         (storage = new MongoStorage("127.0.0.1", 27017)).init();
+
+        new ArtistStorage();
+
         Spark.port(80);
 
         Spark.get("/v3.2/image/:id", new GETOtherImage());
@@ -61,7 +78,13 @@ public class Main {
         Spark.get("/v3.2/music/album/:id/", new GETAlbumOverview());
 
         // Track Routes //
-        Spark.get("/v3.2/music/album/:id/", new GETAlbumOverview());
+        Spark.get("/v3.2/music/track/:id/", new GETTrackCharts());
+
+        // Marketplace Routes //
+        Spark.get("/v3.2/music/chart/zune/albums/", new GETAlbumCharts());
+        Spark.get("/v3.2/music/genre/", new GETGenres());
+        Spark.get("/v3.2/music/featured/albums/", new GETFeaturedAlbums()); // testing
+        Spark.get("/v3.2/music/features/", new GETFeatures()); // testing
 
         Spark.get("/*", (req, res) -> {
             System.out.println(req.url() + " | " + req.contextPath() + " | " + req.params() + " | " + req.queryParams() + " | " + req.queryString());
