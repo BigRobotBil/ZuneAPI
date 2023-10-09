@@ -28,13 +28,84 @@ public class ArtistStorage {
                     false
                 ),
                 new Feature(
+                        "10075000-0200-11db-89ca-0019b92a3933",
+                        new MediaLink("artist", "10075000-0200-11db-89ca-0019b92a3933/"),
+                        "Kanye West",
+                        "My Beautiful Dark Twisted Fantasy",
+                        2,
+                        new MiniImage(UUID.fromString("10075000-0200-11db-89ca-0019b92a3933")),
+                        new MiniImage(UUID.fromString("10075000-0200-11db-89ca-0019b92a3933")),
+                        false
+                ),
+                new Feature(
                         "df2f08ac-4fdb-4ea8-8665-6193b5b26b7e",
                         new MediaLink("album", "b1fef50e-eb67-4419-93f6-f22a03551a6d/"),
                         "Taylor Swift",
                         "Taylor Swift Leaps Into Pop With 'Red'",
-                        2,
+                        3,
                         new MiniImage(UUID.fromString("df2f08ac-4fdb-4ea8-8665-6193b5b26b7e")),
                         new MiniImage(UUID.fromString("b1fef50e-eb67-4419-93f6-f22a03551a6d")),
+                        false
+                ),
+                new Feature(
+                        "fce11e83-6404-4fa9-a06c-17ea5770449c",
+                        new MediaLink("album", "fce11e83-6404-4fa9-a06c-17ea5770449c/"),
+                        "Blackout",
+                        "Britney is back.",
+                        4,
+                        new MiniImage(UUID.fromString("fce11e83-6404-4fa9-a06c-17ea5770449c")),
+                        new MiniImage(UUID.fromString("fce11e83-6404-4fa9-a06c-17ea5770449c")),
+                        false
+                ),
+
+                new Feature(
+                        "df2f08ac-4fdb-4ea8-8665-6193b0b26b9e",
+                        new MediaLink("artist", "10450000-0200-11db-89ca-0019b92a3933/"),
+                        "Taylor Swift",
+                        "Taylor Swift changes her tune on '1989'",
+                        5,
+                        new MiniImage(UUID.fromString("3951a617-1281-45a1-9a7f-76a25bf75ae2")),
+                        new MiniImage(UUID.fromString("f77adb33-8917-4c42-bfb3-f32a6f9d96b5")),
+                        false
+                ),
+                new Feature(
+                        "df2f08ac-4fdb-4ea8-8665-6193b5b26b7e",
+                        new MediaLink("album", "b1fef50e-eb67-4419-93f6-f22a03551a6d/"),
+                        "Taylor Swift",
+                        "Taylor Swift Leaps Into Pop With 'Red'",
+                        6,
+                        new MiniImage(UUID.fromString("df2f08ac-4fdb-4ea8-8665-6193b5b26b7e")),
+                        new MiniImage(UUID.fromString("b1fef50e-eb67-4419-93f6-f22a03551a6d")),
+                        false
+                ),
+                new Feature(
+                        "df2f08ac-4fdb-4ea8-8665-6193b0b26b9e",
+                        new MediaLink("artist", "10450000-0200-11db-89ca-0019b92a3933/"),
+                        "Taylor Swift",
+                        "Taylor Swift changes her tune on '1989'",
+                        7,
+                        new MiniImage(UUID.fromString("3951a617-1281-45a1-9a7f-76a25bf75ae2")),
+                        new MiniImage(UUID.fromString("f77adb33-8917-4c42-bfb3-f32a6f9d96b5")),
+                        false
+                ),
+                new Feature(
+                        "df2f08ac-4fdb-4ea8-8665-6193b5b26b7e",
+                        new MediaLink("album", "b1fef50e-eb67-4419-93f6-f22a03551a6d/"),
+                        "Taylor Swift",
+                        "Taylor Swift Leaps Into Pop With 'Red'",
+                        8,
+                        new MiniImage(UUID.fromString("df2f08ac-4fdb-4ea8-8665-6193b5b26b7e")),
+                        new MiniImage(UUID.fromString("b1fef50e-eb67-4419-93f6-f22a03551a6d")),
+                        false
+                ),
+                new Feature(
+                        "df2f08ac-4fdb-4ea8-8665-6193b0b26b9e",
+                        new MediaLink("artist", "10450000-0200-11db-89ca-0019b92a3933/"),
+                        "Taylor Swift",
+                        "Taylor Swift changes her tune on '1989'",
+                        9,
+                        new MiniImage(UUID.fromString("3951a617-1281-45a1-9a7f-76a25bf75ae2")),
+                        new MiniImage(UUID.fromString("f77adb33-8917-4c42-bfb3-f32a6f9d96b5")),
                         false
                 )
         );

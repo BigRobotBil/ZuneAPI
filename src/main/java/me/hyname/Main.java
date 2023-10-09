@@ -13,6 +13,7 @@ import me.hyname.route.album.GETAlbumOverview;
 import me.hyname.route.artist.*;
 import me.hyname.route.image.GETBackgroundImage;
 import me.hyname.route.image.GETPrimaryImageRoute;
+import me.hyname.route.misc.GETHomeRoute;
 import me.hyname.storage.Storage;
 import me.hyname.storage.impl.MongoStorage;
 import me.hyname.store.ArtistStorage;
@@ -21,10 +22,7 @@ import spark.Spark;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Zune API Checklist:
@@ -73,6 +71,8 @@ public class Main {
 //                false,
 //                true));
 
+
+
         Spark.port(80);
 
         Spark.get("/v3.2/image/:id", new GETOtherImage());
@@ -111,6 +111,10 @@ public class Main {
         Spark.get("/v3.2/music/genre/", new GETGenres());
         Spark.get("/v3.2/music/featured/albums/", new GETFeaturedAlbums()); // testing
         Spark.get("/v3.2/music/features/", new GETFeatures()); // testing
+        //Spark.get("/v3.2/music/playlistFeatures/", new GETFeatures()); // testing
+       // Spark.get("/v3.2/music/artist/:id/similar/", new GETSimilarArtists());
+
+        Spark.get("/", new GETHomeRoute());
 
         Spark.get("/*", (req, res) -> {
             System.out.println(req.url() + " | " + req.contextPath() + " | " + req.params() + " | " + req.queryParams() + " | " + req.queryString());
