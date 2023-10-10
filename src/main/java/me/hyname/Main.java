@@ -14,6 +14,7 @@ import me.hyname.route.artist.*;
 import me.hyname.route.image.GETBackgroundImage;
 import me.hyname.route.image.GETPrimaryImageRoute;
 import me.hyname.route.misc.GETHomeRoute;
+import me.hyname.route.tuners.GETPCConfiguration;
 import me.hyname.storage.Storage;
 import me.hyname.storage.impl.MongoStorage;
 import me.hyname.store.ArtistStorage;
@@ -116,8 +117,74 @@ public class Main {
         Spark.get("/*/music/features/", new GETFeatures()); // testing
         //Spark.get("/v3.2/music/playlistFeatures/", new GETFeatures()); // testing
         Spark.get("/*/music/artist/:id/similarArtists/", new GETSimilarArtists());
+        Spark.get("/*/music/artist/:id/similarArtists", new GETSimilarArtists());
 
+        Spark.get("/en-US/ZunePCClient/*/configuration.xml", new GETPCConfiguration());
+        Spark.get("/en-US/zunepcclient/*/configuration.xml", new GETPCConfiguration());
+        Spark.get("/ZunePCClient/*/configuration.xml", new GETPCConfiguration());
         Spark.get("/", new GETHomeRoute());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Spark.get("/*/*/image/:id", new GETOtherImage());
+
+        // Artist Image Routes //
+        Spark.get("/*/*/en-US/music/artist/:id/images/", new GETArtistImages()); // TODO: Redo
+        Spark.get("/*/*/music/artist/:id/PrimaryImage", new GETPrimaryImageRoute());
+        Spark.get("/*/*/music/artist/:id/primaryImage", new GETPrimaryImageRoute());
+        Spark.get("/*/*/music/artist/:id/deviceBackgroundImage", new GETBackgroundImage()); // TODO: Redo
+        Spark.get("/*/*/en-US/music/artist/:id/deviceBackgroundImage", new GETBackgroundImage()); // TODO: Redo
+
+
+        // Artist Album Routes //
+        Spark.get("/*/*/music/artist/:id/albums/", new GETArtistAlbums());
+        Spark.get("/*/*/music/artist/:id/albums", new GETArtistAlbums());
+        Spark.get("/*/*/music/artist/:id/appearsOnAlbums/", new GETArtistAlbums());
+
+        // Artist Information Routes //
+        Spark.get("/*/*/music/artist/:id/", new GETArtistOverview());
+        Spark.get("/*/*/music/artist/:id", new GETArtistOverview());
+        Spark.get("/*/*/music/artist/:id/biography/", new GETArtistBiography()); // TODO: Redo
+        Spark.get("/*/*/music/artist/:id/biography", new GETArtistBiography()); // TODO: Redo
+
+
+        // Album Related Routes //
+        Spark.get("/*/*/en-US/music/album/:id/image", new GETPrimaryImageRoute());
+        Spark.get("/*/*/music/album/:id/", new GETAlbumOverview());
+
+        // Track Routes //
+        Spark.get("/*/*/music/track/:id/", new GETTrackCharts());
+
+        // Marketplace Routes //
+        Spark.get("/*/*/music/chart/zune/albums/", new GETAlbumCharts());
+        Spark.get("/*/*/music/chart/zune/tracks/", new GETTrackCharts()); // testing
+        Spark.get("/*/*/music/chart/zune/playlists/", new GETPlaylistCharts()); // testing
+        Spark.get("/*/*/music/genre/", new GETGenres());
+        Spark.get("/*/*/music/featured/albums/", new GETFeaturedAlbums()); // testing
+        Spark.get("/*/*/music/features/", new GETFeatures()); // testing
+        //Spark.get("/v3.2/music/playlistFeatures/", new GETFeatures()); // testing
+        Spark.get("/*/*/music/artist/:id/similarArtists/", new GETSimilarArtists());
+        Spark.get("/*/*/music/artist/:id/similarArtists", new GETSimilarArtists());
+
+        Spark.get("/en-US/ZunePCClient/*/configuration.xml", new GETPCConfiguration());
+        Spark.get("/en-US/zunepcclient/*/configuration.xml", new GETPCConfiguration());
+        Spark.get("/ZunePCClient/*/configuration.xml", new GETPCConfiguration());
 
         Spark.get("/*", (req, res) -> {
             System.out.println(req.url() + " | " + req.contextPath() + " | " + req.params() + " | " + req.queryParams() + " | " + req.queryString());
