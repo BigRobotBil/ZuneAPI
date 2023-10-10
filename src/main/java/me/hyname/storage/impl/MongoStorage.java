@@ -262,4 +262,16 @@ public class MongoStorage extends Storage {
 
         return finalOutput;
     }
+
+    @Override
+    public List<Artist> getArtists() {
+        List<Artist> finalOutput = new ArrayList<>();
+        FindIterable<Document> documents = artistCollection.find();
+
+        documents.forEach((Consumer<? super Document>)  document -> {
+            finalOutput.add(readArtist(document.getString("id")));
+        });
+
+        return finalOutput;
+    }
 }

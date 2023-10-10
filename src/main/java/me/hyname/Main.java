@@ -22,6 +22,7 @@ import spark.Spark;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -75,44 +76,46 @@ public class Main {
 
         Spark.port(80);
 
-        Spark.get("/v3.2/image/:id", new GETOtherImage());
+        Spark.get("/*/image/:id", new GETOtherImage());
 
         // Artist Image Routes //
-        Spark.get("/v3.2/en-US/music/artist/:id/images/", new GETArtistImages()); // TODO: Redo
-        Spark.get("/v3.2/music/artist/:id/PrimaryImage", new GETPrimaryImageRoute());
-        Spark.get("/v3.2/music/artist/:id/primaryImage", new GETPrimaryImageRoute());
-        Spark.get("/v3.2/music/artist/:id/deviceBackgroundImage", new GETBackgroundImage()); // TODO: Redo
+        Spark.get("/*/en-US/music/artist/:id/images/", new GETArtistImages()); // TODO: Redo
+        Spark.get("/*/music/artist/:id/PrimaryImage", new GETPrimaryImageRoute());
+        Spark.get("/*/music/artist/:id/primaryImage", new GETPrimaryImageRoute());
+        Spark.get("/*/music/artist/:id/deviceBackgroundImage", new GETBackgroundImage()); // TODO: Redo
+        Spark.get("/*/en-US/music/artist/:id/deviceBackgroundImage", new GETBackgroundImage()); // TODO: Redo
 
 
         // Artist Album Routes //
-        Spark.get("/v3.2/music/artist/:id/albums/", new GETArtistAlbums());
-        Spark.get("/v3.2/music/artist/:id/albums", new GETArtistAlbums());
-        Spark.get("/v3.2/music/artist/:id/appearsOnAlbums/", new GETArtistAlbums());
+        Spark.get("/*/music/artist/:id/albums/", new GETArtistAlbums());
+        Spark.get("/*/music/artist/:id/albums", new GETArtistAlbums());
+        Spark.get("/*/music/artist/:id/appearsOnAlbums/", new GETArtistAlbums());
 
         // Artist Information Routes //
-        Spark.get("/v3.2/music/artist/:id/", new GETArtistOverview());
-        Spark.get("/v3.2/music/artist/:id", new GETArtistOverview());
-        Spark.get("/v3.2/en-US/music/artist/:id/", new GETArtistOverview());
-        Spark.get("/v3.2/music/artist/:id/biography/", new GETArtistBiography()); // TODO: Redo
-        Spark.get("/v3.2/en-US/music/artist/:id/biography/", new GETArtistBiography()); // TODO: Redo
+        Spark.get("/*/music/artist/:id/", new GETArtistOverview());
+        Spark.get("/*/music/artist/:id", new GETArtistOverview());
+        Spark.get("/*/en-US/music/artist/:id/", new GETArtistOverview());
+        Spark.get("/*/music/artist/:id/biography/", new GETArtistBiography()); // TODO: Redo
+        Spark.get("/*/en-US/music/artist/:id/biography/", new GETArtistBiography()); // TODO: Redo
+        Spark.get("/*/en-US/music/artist/:id/biography", new GETArtistBiography()); // TODO: Redo
 
 
         // Album Related Routes //
-        Spark.get("/v3.2/en-US/music/album/:id/image", new GETPrimaryImageRoute());
-        Spark.get("/v3.2/music/album/:id/", new GETAlbumOverview());
+        Spark.get("/*/en-US/music/album/:id/image", new GETPrimaryImageRoute());
+        Spark.get("/*/music/album/:id/", new GETAlbumOverview());
 
         // Track Routes //
-        Spark.get("/v3.2/music/track/:id/", new GETTrackCharts());
+        Spark.get("/*/music/track/:id/", new GETTrackCharts());
 
         // Marketplace Routes //
-        Spark.get("/v3.2/music/chart/zune/albums/", new GETAlbumCharts());
-        Spark.get("/v3.2/music/chart/zune/tracks/", new GETTrackCharts()); // testing
-        Spark.get("/v3.2/music/chart/zune/playlists/", new GETPlaylistCharts()); // testing
-        Spark.get("/v3.2/music/genre/", new GETGenres());
-        Spark.get("/v3.2/music/featured/albums/", new GETFeaturedAlbums()); // testing
-        Spark.get("/v3.2/music/features/", new GETFeatures()); // testing
+        Spark.get("/*/music/chart/zune/albums/", new GETAlbumCharts());
+        Spark.get("/*/music/chart/zune/tracks/", new GETTrackCharts()); // testing
+        Spark.get("/*/music/chart/zune/playlists/", new GETPlaylistCharts()); // testing
+        Spark.get("/*/music/genre/", new GETGenres());
+        Spark.get("/*/music/featured/albums/", new GETFeaturedAlbums()); // testing
+        Spark.get("/*/music/features/", new GETFeatures()); // testing
         //Spark.get("/v3.2/music/playlistFeatures/", new GETFeatures()); // testing
-       // Spark.get("/v3.2/music/artist/:id/similar/", new GETSimilarArtists());
+        Spark.get("/*/music/artist/:id/similarArtists/", new GETSimilarArtists());
 
         Spark.get("/", new GETHomeRoute());
 

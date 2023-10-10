@@ -1,5 +1,6 @@
 package me.hyname.storage;
 
+import com.mongodb.BulkWriteOperation;
 import me.hyname.model.Album;
 import me.hyname.model.Artist;
 import me.hyname.model.Track;
@@ -30,4 +31,6 @@ public abstract class Storage {
     public abstract List<Album> getAlbums();
 
     public abstract List<Track> getTracks();
+
+    public abstract List<Artist> getArtists();
 }

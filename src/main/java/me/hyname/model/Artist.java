@@ -117,5 +117,15 @@ public class Artist {
     public UUID getDbId() {
         return this.id;
     }
+
+
+    public List<Genre> getArtistGenres() {
+        return this.genres;
+    }
+
+
+    public Genre getArtistPrimaryGenre() {
+        return this.primaryGenre;
+    }
 }
 
