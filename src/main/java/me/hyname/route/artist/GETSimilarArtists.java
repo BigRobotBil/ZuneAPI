@@ -40,6 +40,7 @@ public class GETSimilarArtists implements Route {
                 for (Genre genres : a.getArtistGenres()) {
                     for (Genre otherGenres : primaryArtist.getArtistGenres()) {
                         if (genres == primaryArtist.getArtistPrimaryGenre() || otherGenres == a.getArtistPrimaryGenre()) {
+                            if(similarArtists.contains(a)) continue;
                             similarArtists.add(a);
                             break;
                         }
@@ -47,6 +48,19 @@ public class GETSimilarArtists implements Route {
                 }
             }
         }
+
+        for(Artist a : documents) {
+                for (Mood moods : a.getArtistMoods()) {
+                    for (Mood otherMoods : primaryArtist.getArtistMoods()) {
+                        if (moods == otherMoods) {
+                            if(similarArtists.contains(a)) continue;
+                            similarArtists.add(a);
+                            break;
+                        }
+                    }
+                }
+        }
+
 
         Feed<Artist> que=  new Feed<>();
 

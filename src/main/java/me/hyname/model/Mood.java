@@ -8,7 +8,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "mood")
 public enum Mood {
     UPBEAT("upbeat", "Upbeat"),
-    JOYFUL("joyful", "Joyful");
+    JOYFUL("joyful", "Joyful"),
+    EXPERIMENTAL("experimental", "Experimental"),
+    EMOTIONAL("emotional", "Emotional"),
+
+    SAD("sad", "Sad"),
+    DEFIANT("defiant", "Defiant"),
+    BITTERSWEET("bittersweet", "Bittersweet"),
+    ANGRY("angry", "Angry"),
+    DREAMY("dreamy", "Dreamy"),
+
+    ROMANTIC("romantic", "Romantic"),
+    PLAYFUL("playful", "Playful"),
+    ENERGETIC("energetic", "Energetic"),
+    CALM("calm", "Calm"),
+    CHILL("chill", "Chill"),
+    DARK("dark", "Dark"),
+    AGGRESSIVE("aggressive", "Aggressive");
 
     @XmlElement(name = "id")
     String id;

@@ -127,5 +127,7 @@ public class Artist {
     public Genre getArtistPrimaryGenre() {
         return this.primaryGenre;
     }
+
+    public List<Mood> getArtistMoods() { return moods; }
 }
 
