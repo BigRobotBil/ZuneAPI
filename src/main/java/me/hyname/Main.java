@@ -1,7 +1,7 @@
 package me.hyname;
 
 import lombok.Getter;
-import me.hyname.model.*;
+import me.hyname.route.album.GETRelatedAlbums;
 import me.hyname.route.chart.GETAlbumCharts;
 import me.hyname.route.chart.GETPlaylistCharts;
 import me.hyname.route.chart.GETTrackCharts;
@@ -19,12 +19,6 @@ import me.hyname.storage.Storage;
 import me.hyname.storage.impl.MongoStorage;
 import me.hyname.store.ArtistStorage;
 import spark.Spark;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.Charset;
-import java.util.*;
 
 /**
  * Zune API Checklist:
@@ -159,6 +153,7 @@ public class Main {
 
 
         Spark.get("/*/*/music/artist/:id/tracks/", new GETArtistTracks());
+        Spark.get("/*/*/music/album/:id/relatedAlbums/", new GETRelatedAlbums());
 
         // Artist Information Routes //
         Spark.get("/*/*/music/artist/:id/", new GETArtistOverview());

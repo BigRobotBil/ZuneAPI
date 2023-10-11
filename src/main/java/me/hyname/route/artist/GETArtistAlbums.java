@@ -29,6 +29,9 @@ public class GETArtistAlbums implements Route {
         List<Album> albumList = Main.getStorage().readAlbumsByArtist(artist);
         Feed<Album> que=  new Feed<>();
 
+        albumList.sort(Comparator.comparing(o -> o.releaseDate));
+        Collections.reverse(albumList);
+
         if(request.queryParams("orderby") != null) {
             switch (request.queryParams("orderby")) {
                 case "Title":
