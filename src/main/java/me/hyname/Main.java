@@ -157,6 +157,9 @@ public class Main {
         Spark.get("/*/*/music/artist/:id/albums", new GETArtistAlbums());
         Spark.get("/*/*/music/artist/:id/appearsOnAlbums/", new GETArtistAlbums());
 
+
+        Spark.get("/*/*/music/artist/:id/tracks/", new GETArtistTracks());
+
         // Artist Information Routes //
         Spark.get("/*/*/music/artist/:id/", new GETArtistOverview());
         Spark.get("/*/*/music/artist/:id", new GETArtistOverview());

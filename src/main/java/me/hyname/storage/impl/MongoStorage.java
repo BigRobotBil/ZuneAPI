@@ -230,7 +230,7 @@ public class MongoStorage extends Storage {
     @Override
     public List<Track> readTracksByArtist(Artist artist) {
         List<Track> finalOutput = new ArrayList<>();
-        FindIterable<Document> documents = trackCollection.find(Filters.eq("primaryArtist", new MiniArtist(artist.getName(), artist.getDbId()).toMongo()));
+        FindIterable<Document> documents = trackCollection.find(Filters.eq("albumArtist", new MiniArtist(artist.getName(), artist.getDbId()).toMongo()));
 
         documents.forEach((Consumer<? super Document>)  document -> {
             finalOutput.add(readTrack(document.getString("id")));

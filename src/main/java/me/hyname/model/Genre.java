@@ -1,9 +1,7 @@
 package me.hyname.model;
 
-import com.google.gson.JsonObject;
 import org.bson.Document;
 
-import javax.print.Doc;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,7 +23,7 @@ public enum Genre {
     WORLDWIDE("worldwide", "Worldwide"),
     NEW_AGE("new-age", "New Age"),
     J_POP("j-pop", "J-Pop"),
-    INSTRAUMENTAL("instrumental", "Instrumental"),
+    INSTRUMENTAL("instrumental", "Instrumental"),
     DANCE("dance", "Dance"),
     ELECTRONICA("electronica", "Electronica");
 
