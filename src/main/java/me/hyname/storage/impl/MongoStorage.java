@@ -90,7 +90,7 @@ public class MongoStorage extends Storage {
                         readDocument.getDouble("popularity"),
                         readDocument.getBoolean("isVariousArtist"),
                         readDocument.getString("biographyLink"),
-                   //     readDocument.getString("biography"),
+                        readDocument.getString("biography"),
                         readDocument.getString("shortBiography"),
                         readDocument.getInteger("playCount"),
                         Genre.fromMongo(readDocument.get("primaryGenre", Document.class)),

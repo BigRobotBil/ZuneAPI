@@ -39,9 +39,9 @@ public class Artist {
 
     @XmlElement(name = "biographyLink")
     private String biographyLink;
-//
-//    @XmlElement(name = "biography")
-//    private String biography;
+
+    @XmlElement(name = "biography")
+    private String biography;
 
     @XmlElement(name = "shortBiography")
     private String shortBiography;
@@ -129,5 +129,13 @@ public class Artist {
     }
 
     public List<Mood> getArtistMoods() { return moods; }
+
+    public String getBio() {
+        return biography;
+    }
+
+    public List<MiniImage> getArtistImages() {
+        return images;
+    }
 }
 

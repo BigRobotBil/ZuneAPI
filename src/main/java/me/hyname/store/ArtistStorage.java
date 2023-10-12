@@ -121,6 +121,7 @@ public class ArtistStorage {
                 false,
                 "/v3.2/en-US/music/artist/10450000-0200-11db-89ca-0019b92a3933/biography/",
                 "bbb",
+                "aaa",
                 1000,
                 Genre.POP,
                 Arrays.asList(Genre.POP, Genre.ALTERNATIVE, Genre.COUNTRY),
