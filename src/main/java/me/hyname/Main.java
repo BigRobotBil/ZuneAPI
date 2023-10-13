@@ -3,6 +3,7 @@ package me.hyname;
 import lombok.Getter;
 import me.hyname.handler.ZuneErrorHandler;
 import me.hyname.route.album.GETRelatedAlbums;
+import me.hyname.route.album.GETRelatedArtistAlbums;
 import me.hyname.route.chart.GETAlbumCharts;
 import me.hyname.route.chart.GETPlaylistCharts;
 import me.hyname.route.chart.GETTrackCharts;
@@ -86,6 +87,7 @@ public class Main {
 
         Spark.get("/*/*/music/artist/:id/tracks/", new GETArtistTracks());
         Spark.get("/*/*/music/album/:id/relatedAlbums/", new GETRelatedAlbums());
+        Spark.get("/*/*/music/artist/:id/relatedAlbums/", new GETRelatedArtistAlbums());
 
         // Artist Information Routes //
         Spark.get("/*/*/music/artist/:id/", new GETArtistOverview());
