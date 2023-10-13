@@ -1,9 +1,7 @@
-package me.hyname.route.artist;
+package me.hyname.route.album;
 
-import com.mongodb.client.FindIterable;
 import me.hyname.Main;
 import me.hyname.model.*;
-import org.bson.Document;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -13,14 +11,14 @@ import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
-public class GETSimilarArtists implements Route {
-
+public class GETRelatedArtistAlbums implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
+
         response.type("text/xml");
         response.raw().setContentType("text/xml");
         JAXBContext contextObj = JAXBContext.newInstance(Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
@@ -28,14 +26,15 @@ public class GETSimilarArtists implements Route {
         Marshaller marshallerObj = contextObj.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
         Artist primaryArtist = Main.getStorage().readArtist(request.params(":id").toLowerCase());
+
         List<Artist> similarArtists = new ArrayList<>();
 
         List<Artist> documents = Main.getStorage().getArtists();
 
+        List<Album> related = new ArrayList<>();
+
         for(Artist a : documents) {
-            if(Objects.equals(primaryArtist.id.toString(), a.id.toString())) continue;
             if (a.getArtistPrimaryGenre() == primaryArtist.getArtistPrimaryGenre()) {
                 similarArtists.add(a);
             } else {
@@ -52,22 +51,34 @@ public class GETSimilarArtists implements Route {
         }
 
         for(Artist a : documents) {
-                if(Objects.equals(primaryArtist.id.toString(), a.id.toString())) continue;
-                for (Mood moods : a.getArtistMoods()) {
-                    for (Mood otherMoods : primaryArtist.getArtistMoods()) {
-                        if (moods == otherMoods) {
-                            if(similarArtists.contains(a)) continue;
-                            similarArtists.add(a);
-                            break;
-                        }
+            for (Mood moods : a.getArtistMoods()) {
+                for (Mood otherMoods : primaryArtist.getArtistMoods()) {
+                    if (moods == otherMoods) {
+                        if(similarArtists.contains(a)) continue;
+                        similarArtists.add(a);
+                        break;
                     }
                 }
+            }
         }
 
+        similarArtists.remove(primaryArtist);
 
-        Feed<Artist> que=  new Feed<>();
+        for(Artist a : similarArtists) {
+            if(a == primaryArtist) continue;
+            for(Album al : Main.getStorage().readAlbumsByArtist(a)) {
+                if(related.contains(al)) continue;
+                if(Objects.equals(al.primaryArtist.id.toString(), primaryArtist.id.toString())) continue;
+                related.add(al);
+            }
+        }
 
-        que.setEntries(similarArtists);
+        Feed<Album> que=  new Feed<>();
+
+        Collections.shuffle(related);
+        que.setEntries(related);
+
+
 
 
 

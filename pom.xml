@@ -53,5 +53,13 @@
             <version>1.18.28</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-cosmos</artifactId>
+            <version>4.45.1</version>
+        </dependency>
+
+
     </dependencies>
 </project>

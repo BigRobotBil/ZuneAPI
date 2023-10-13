@@ -59,23 +59,23 @@ public class ArtistStorage {
                 ),
 
                 new Feature(
-                        "df2f08ac-4fdb-4ea8-8665-6193b0b26b9e",
-                        new MediaLink("artist", "10450000-0200-11db-89ca-0019b92a3933/"),
-                        "Taylor Swift",
-                        "Taylor Swift changes her tune on '1989'",
+                        "bc9a9d79-8e88-487c-88e7-67fd2a960713",
+                        new MediaLink("artist", "bc9a9d79-8e88-487c-88e7-67fd2a960713/"),
+                        "Owl City",
+                        "The Midsummer Station",
                         5,
-                        new MiniImage(UUID.fromString("3951a617-1281-45a1-9a7f-76a25bf75ae2")),
-                        new MiniImage(UUID.fromString("f77adb33-8917-4c42-bfb3-f32a6f9d96b5")),
+                        new MiniImage(UUID.fromString("bc9a9d79-8e88-487c-88e7-67fd2a960713")),
+                        new MiniImage(UUID.fromString("bc9a9d79-8e88-487c-88e7-67fd2a960713")),
                         false
                 ),
                 new Feature(
-                        "df2f08ac-4fdb-4ea8-8665-6193b5b26b7e",
-                        new MediaLink("album", "b1fef50e-eb67-4419-93f6-f22a03551a6d/"),
-                        "Taylor Swift",
-                        "Taylor Swift Leaps Into Pop With 'Red'",
+                        "b9df75ed-d53e-490b-8ba2-acfe3074bb61",
+                        new MediaLink("artist", "b1fef50e-eb67-4419-93f6-f22a03551a6d/"),
+                        "Charli XCX",
+                        "Sucker",
                         6,
-                        new MiniImage(UUID.fromString("df2f08ac-4fdb-4ea8-8665-6193b5b26b7e")),
-                        new MiniImage(UUID.fromString("b1fef50e-eb67-4419-93f6-f22a03551a6d")),
+                        new MiniImage(UUID.fromString("b9df75ed-d53e-490b-8ba2-acfe3074bb61")),
+                        new MiniImage(UUID.fromString("b9df75ed-d53e-490b-8ba2-acfe3074bb61")),
                         false
                 ),
                 new Feature(

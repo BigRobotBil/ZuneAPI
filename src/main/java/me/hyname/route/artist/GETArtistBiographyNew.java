@@ -22,7 +22,7 @@ public class GETArtistBiographyNew implements Route {
     public Object handle(Request request, Response response) throws Exception {
         response.type("text/xml");
         response.raw().setContentType("text/xml");
-        JAXBContext contextObj = JAXBContext.newInstance(Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
+        JAXBContext contextObj = JAXBContext.newInstance(Biography.class, Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
 
         Marshaller marshallerObj = contextObj.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

@@ -1,6 +1,7 @@
 package me.hyname;
 
 import lombok.Getter;
+import me.hyname.handler.ZuneErrorHandler;
 import me.hyname.route.album.GETRelatedAlbums;
 import me.hyname.route.chart.GETAlbumCharts;
 import me.hyname.route.chart.GETPlaylistCharts;
@@ -47,10 +48,7 @@ public class Main {
 
         Spark.port(80);
 
-        Spark.exception(Exception.class, (e, request, response) -> {
-            e.printStackTrace();
-            // mke this an actual route later <3
-        });
+        Spark.exception(Exception.class, new ZuneErrorHandler());
 
 //        Spark.internalServerError();
 //        Spark.notFound();
@@ -73,7 +71,8 @@ public class Main {
         Spark.get("/*/*/image/:id", new GETOtherImage());
 
         // Artist Image Routes //
-        Spark.get("/*/*/en-US/music/artist/:id/images/", new GETArtistImagesNew()); // TODO: Redo
+        Spark.get("/*/*/music/artist/:id/images/", new GETArtistImagesNew()); // TODO: Redo
+        Spark.get("/*/*/music/artist/:id/images", new GETArtistImagesNew()); // TODO: Redo
         Spark.get("/*/*/music/artist/:id/PrimaryImage", new GETPrimaryImageRoute());
         Spark.get("/*/*/music/artist/:id/primaryImage", new GETPrimaryImageRoute());
         Spark.get("/*/*/music/artist/:id/deviceBackgroundImage", new GETDeviceBackgroundImage()); // TODO: Redo
@@ -84,7 +83,6 @@ public class Main {
         Spark.get("/*/*/music/artist/:id/albums/", new GETArtistAlbums());
         Spark.get("/*/*/music/artist/:id/albums", new GETArtistAlbums());
         Spark.get("/*/*/music/artist/:id/appearsOnAlbums/", new GETArtistAlbums());
-
 
         Spark.get("/*/*/music/artist/:id/tracks/", new GETArtistTracks());
         Spark.get("/*/*/music/album/:id/relatedAlbums/", new GETRelatedAlbums());

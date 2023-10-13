@@ -24,8 +24,7 @@ public class Biography {
     @XmlElement(name = "content")
     String content;
 
-    @XmlElementWrapper(name = "author")
-    @XmlElement(name = "name")
-    String author;
+    @XmlElement(name = "author")
+    String authorName;
 }
 

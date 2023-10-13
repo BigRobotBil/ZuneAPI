@@ -26,7 +26,7 @@ public class Artist {
 
 
     @XmlElement(name = "id")
-    private UUID id;
+    public UUID id;
 
     @XmlElement(name = "imageId")
     private UUID imageId;

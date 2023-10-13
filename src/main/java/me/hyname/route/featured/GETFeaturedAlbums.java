@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,7 +27,8 @@ public class GETFeaturedAlbums implements Route {
         Feed<Album> que=  new Feed<>();
         List<Album> albums = Main.getStorage().getAlbums();
 
-        albums.sort(Comparator.comparing(o -> o.popularity));
+        albums.sort(Comparator.comparing(o -> o.releaseDate));
+        Collections.reverse(albums);
 
         que.setEntries(albums);
 

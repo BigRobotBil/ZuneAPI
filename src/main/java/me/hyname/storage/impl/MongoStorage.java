@@ -1,6 +1,8 @@
 package me.hyname.storage.impl;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -17,6 +19,17 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+/**
+ * @author Hyname
+ * @apiNote MongoDB Implementation
+ * <p>
+ * @implNote MongoDB is the preferred method of storage for this project,
+ * <p>Heres Why:
+ * <p>- Open Source
+ * <p>- Self-hostable
+ * <p>- Easy to use API
+ * <p>- easy to convert to json + reading objects is a breeze.
+ */
 public class MongoStorage extends Storage {
 
     @Getter private String host;
@@ -36,7 +49,13 @@ public class MongoStorage extends Storage {
 
     @Override
     public void init() {
-        this.client = new MongoClient(host, port);
+        MongoClientOptions options = new MongoClientOptions.Builder()
+                .connectTimeout(1000)
+                .serverSelectionTimeout(100)
+                .maxWaitTime(2000)
+                .build();
+        this.client = new MongoClient(new ServerAddress(host, port), options);
+
         this.database = client.getDatabase("zune");
         this.albumCollection = database.getCollection("albums");
         this.artistCollection = database.getCollection("artists");

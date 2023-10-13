@@ -22,8 +22,15 @@ public class ZuneErrorHandler implements ExceptionHandler {
         response.raw().setContentType("text/xml");
 
         JAXBContext contextObj = null;
+
+
+        System.out.println("API Encountered an error.");
+        System.out.println("Caused By: " + request.url());
+        System.out.println("Stacktrace:");
+        e.printStackTrace();
+
         try {
-            contextObj = JAXBContext.newInstance(Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
+            contextObj = JAXBContext.newInstance(ErrorResponse.class, Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
 
             Marshaller marshallerObj = contextObj.createMarshaller();
             marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -36,10 +43,7 @@ public class ZuneErrorHandler implements ExceptionHandler {
             throw new RuntimeException(ex);
         }
 
+        return;
 
-        System.out.println("API Encountered an error.");
-        System.out.println("Caused By: " + request.contextPath());
-        System.out.println("Stacktrace:");
-        e.printStackTrace();
     }
 }
