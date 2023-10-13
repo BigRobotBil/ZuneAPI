@@ -18,11 +18,16 @@ import java.util.List;
  * <p>- Unable to self-host
  * <p>- Unable to test this as I'm unable to self-host a cosmos db
  */
-public class
-CosmosStorage extends Storage {
+public class CosmosStorage extends Storage {
 
     @Getter public String host;
     @Getter public String masterKey;
+
+
+    public CosmosStorage(String host, String masterKey) {
+        this.host = host;
+        this.masterKey = masterKey;
+    }
 
     // ill finish this later
 

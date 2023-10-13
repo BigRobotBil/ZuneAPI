@@ -1,33 +1,43 @@
 package me.hyname.route.artist;
 
+import me.hyname.Main;
+import me.hyname.model.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.utils.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GETArtistImages implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        File file = new File("data/" + request.params(":id") + "/images.xml");
         response.type("text/xml");
-        InputStream is = new FileInputStream(file);
-
         response.raw().setContentType("text/xml");
-        response.raw().setHeader("Content-Disposition", "inline; filename=" + file.getName());
+        JAXBContext contextObj = JAXBContext.newInstance(Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
 
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = is.read(buffer)) > 0) {
-            response.raw().getOutputStream().write(buffer, 0, len);
+        Marshaller marshallerObj = contextObj.createMarshaller();
+        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Artist artist = Main.getStorage().readArtist(request.params(":id").toLowerCase());
+        List<MiniImage> images = new ArrayList<>();
+        Feed<MiniImage> que=  new Feed<>();
+
+        for (MiniImage i : artist.getArtistImages()) {
+            images.add(i);
         }
 
-        String result = IOUtils.toString(is);
-        is.close();
+        que.setEntries(images);
+
+
+
+
+        marshallerObj.marshal(que, baos);
         System.out.println(request.url() + " | " + request.contextPath() + " | " + request.params() + " | " + request.queryParams() + " | " + request.queryString());
-        return result.trim();
+        return baos.toString(Charset.defaultCharset().name());
     }
 }

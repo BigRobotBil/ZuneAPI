@@ -1,33 +1,38 @@
 package me.hyname.route.artist;
 
+import me.hyname.Main;
+import me.hyname.model.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.utils.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
+import java.util.*;
 
 public class GETArtistBiography implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        File file = new File("data/" + request.params(":id") + "/biography.xml");
         response.type("text/xml");
-        InputStream is = new FileInputStream(file);
-
         response.raw().setContentType("text/xml");
-        response.raw().setHeader("Content-Disposition", "inline; filename=" + file.getName());
+        JAXBContext contextObj = JAXBContext.newInstance(Biography.class, Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
 
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = is.read(buffer)) > 0) {
-            response.raw().getOutputStream().write(buffer, 0, len);
-        }
+        Marshaller marshallerObj = contextObj.createMarshaller();
+        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Artist artist = Main.getStorage().readArtist(request.params(":id").toLowerCase());
+        Biography bio = new Biography(new Date(System.currentTimeMillis()), artist.getName(), artist.getDbId(), artist.getBio(), "Microsoft Corporation");
+        Feed<Biography> que=  new Feed<>();
 
-        String result = IOUtils.toString(is);
-        is.close();
+        que.setEntries(Collections.singletonList(bio));
+
+
+
+
+        marshallerObj.marshal(que, baos);
         System.out.println(request.url() + " | " + request.contextPath() + " | " + request.params() + " | " + request.queryParams() + " | " + request.queryString());
-        return result.trim();
+        return baos.toString(Charset.defaultCharset().name());
     }
 }

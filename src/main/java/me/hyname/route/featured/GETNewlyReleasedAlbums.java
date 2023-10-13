@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class GETFeaturedAlbums implements Route {
+public class GETNewlyReleasedAlbums implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         response.type("text/xml");

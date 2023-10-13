@@ -31,7 +31,7 @@ To get started with this Java project, follow these steps:
    sudo mv /path/to/images/* /images
    ```
 
-4. Build Server using Mavn & run
+4. Build Server using Maven & run
    ```bash
    mvn package
    java -jar target/ZuneAPI-1.0-SNAPSHOT.jar

@@ -1,6 +1,5 @@
 package me.hyname.route.featured;
 
-import me.hyname.Main;
 import me.hyname.model.*;
 import me.hyname.store.ArtistStorage;
 import spark.Request;
@@ -11,10 +10,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
-import java.util.Comparator;
 import java.util.List;
 
-public class GETFeatures implements Route {
+public class GETFeaturedCards implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         response.type("text/xml");
