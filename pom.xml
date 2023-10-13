@@ -5,8 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.hyname</groupId>
-    <artifactId>ZuneAPI</artifactId>
+    <artifactId>zuneapi</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <name>ZuneAPI</name>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -54,12 +56,17 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.azure</groupId>
-            <artifactId>azure-cosmos</artifactId>
-            <version>4.45.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.azure</groupId>-->
+<!--            <artifactId>azure-cosmos</artifactId>-->
+<!--            <version>4.45.1</version>-->
+<!--        </dependency>-->
 
+        <dependency>
+            <groupId>de.u-mass</groupId>
+            <artifactId>lastfm-java</artifactId>
+            <version>0.1.2</version>
+        </dependency>
 
     </dependencies>
 </project>

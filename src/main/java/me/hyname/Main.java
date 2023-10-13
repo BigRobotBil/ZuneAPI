@@ -1,6 +1,8 @@
 package me.hyname;
 
 import lombok.Getter;
+import me.hyname.adapter.Adapter;
+import me.hyname.adapter.impl.LastFMAdapter;
 import me.hyname.handler.ZuneErrorHandler;
 import me.hyname.route.album.GETRelatedAlbums;
 import me.hyname.route.album.GETRelatedArtistAlbums;
@@ -27,12 +29,14 @@ import spark.Spark;
  * Zune API Checklist:
  * [o] Better Documentation
  * [/] Artist Routes
- * [o] Store Routes
+ * [/] Store Routes
  * [/] Album Routes
  * [/] Track Routes
- * [o] Similar Artists Route
+ * [x] Similar Artists Route
  * [o] Streaming????
- * [/] Better image Routes
+ * [x] Better image Routes
+ * [o] Last.fm adapters
+ *
  *
  * x - done
  * o - to do
@@ -41,11 +45,11 @@ import spark.Spark;
 public class Main {
 
     @Getter  private static Storage storage;
+    @Getter  private static Adapter dataAdapter;
 
     public static void main(String[] args) throws Exception {
 
         (storage = new MongoStorage("127.0.0.1", 27017)).init();
-
         new ArtistStorage();
 
         Spark.port(80);
@@ -96,7 +100,6 @@ public class Main {
         Spark.get("/*/*/music/artist/:id", new GETArtistOverview());
         Spark.get("/*/*/music/artist/:id/biography/", new GETArtistBiography()); // TODO: Redo
         Spark.get("/*/*/music/artist/:id/biography", new GETArtistBiography()); // TODO: Redo
-
 
         // Album Related Routes //
         Spark.get("/*/*/en-US/music/album/:id/image", new GETPrimaryImageRoute());
