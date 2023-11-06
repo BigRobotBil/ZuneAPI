@@ -1,7 +1,6 @@
 package me.hyname;
 
 import me.hyname.adapter.Adapter;
-import me.hyname.adapter.impl.LastFMAdapter;
 import me.hyname.handler.ZuneErrorHandler;
 import me.hyname.route.album.GETRelatedAlbums;
 import me.hyname.route.album.GETRelatedArtistAlbums;
@@ -48,7 +47,6 @@ public class Main {
     private static Adapter dataAdapter;
 
     public static void main(String[] args) throws Exception {
-
         (storage = new MongoStorage("127.0.0.1", 27017)).init();
         new ArtistStorage();
 
@@ -71,9 +69,6 @@ public class Main {
     }
 
     private static void registerRoutes() {
-
-
-
         Spark.get("/*/*/image/:id", new GETOtherImage());
 
         // Artist Image Routes //
@@ -162,5 +157,13 @@ public class Main {
 
     public static Adapter getDataAdapter() {
         return dataAdapter;
+    }
+    
+    /**
+     * Used for unit tests
+     * @param newStorage Storage to replace with new instance
+     */
+    public static void setStorage(Storage newStorage) {
+        storage = newStorage;
     }
 }

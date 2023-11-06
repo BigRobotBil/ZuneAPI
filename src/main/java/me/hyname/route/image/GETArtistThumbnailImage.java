@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+/**
+ * Returns the thumbnail image for the artist
+ */
 public class GETArtistThumbnailImage implements Route {
 
     @Override

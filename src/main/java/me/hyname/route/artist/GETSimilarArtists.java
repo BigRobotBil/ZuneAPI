@@ -1,21 +1,18 @@
 package me.hyname.route.artist;
 
-import com.mongodb.client.FindIterable;
 import me.hyname.Main;
 import me.hyname.model.*;
-import org.bson.Document;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class GETSimilarArtists implements Route {
 

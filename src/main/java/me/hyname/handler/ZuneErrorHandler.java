@@ -1,18 +1,14 @@
 package me.hyname.handler;
 
-import me.hyname.Main;
 import me.hyname.model.*;
 import spark.ExceptionHandler;
 import spark.Request;
 import spark.Response;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
-import java.util.Collections;
-import java.util.Date;
 
 public class ZuneErrorHandler implements ExceptionHandler {
     @Override

@@ -6,8 +6,8 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 import java.util.Comparator;
@@ -30,9 +30,6 @@ public class GETAlbumCharts implements Route {
         albums.sort(Comparator.comparing(o -> o.popularity));
 
         que.setEntries(albums);
-
-
-
 
         marshallerObj.marshal(que, baos);
 
