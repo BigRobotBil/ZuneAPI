@@ -7,7 +7,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import lombok.Getter;
 import me.hyname.model.*;
 import me.hyname.storage.Storage;
 import org.bson.Document;
@@ -32,8 +31,8 @@ import java.util.function.Consumer;
  */
 public class MongoStorage extends Storage {
 
-    @Getter private String host;
-    @Getter private int port;
+    private String host;
+    private int port;
     private MongoClient client;
     private MongoDatabase database;
 
@@ -46,6 +45,7 @@ public class MongoStorage extends Storage {
         this.host = host;
         this.port = port;
     }
+
 
     @Override
     public void init() {
@@ -161,7 +161,7 @@ public class MongoStorage extends Storage {
                         MiniAlbum.fromMongo(readDocument.get("album", Document.class)),
                         MiniArtist.fromMongo(readDocument.get("albumArtist", Document.class)),
                         readDocument.getInteger("playCount"),
-                        readDocument.get("musicVideoId", UUID.class),
+                        readDocument.getString("musicVideoId"),
                         readDocument.getInteger("pointsPrice"),
                         readDocument.getBoolean("canPlay"),
                         readDocument.getBoolean("canDownload"),
@@ -292,5 +292,14 @@ public class MongoStorage extends Storage {
         });
 
         return finalOutput;
+    }
+
+
+    public int getPort() {
+        return port;
+    }
+
+    public String getHost() {
+        return host;
     }
 }

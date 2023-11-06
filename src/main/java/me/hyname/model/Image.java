@@ -1,7 +1,5 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.bson.Document;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -12,8 +10,6 @@ import java.util.List;
 import java.util.UUID;
 
 @XmlRootElement(name = "image")
-@AllArgsConstructor
-@NoArgsConstructor
 public class Image {
 
 
@@ -44,5 +40,13 @@ public class Image {
         document.put("instances", instanceArray);
 
         return document;
+    }
+
+    public Image(UUID id, List<ImageInstance> instances) {
+        this.id = id;
+        this.instances = instances;
+    }
+
+    public Image() {
     }
 }

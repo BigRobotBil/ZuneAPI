@@ -1,9 +1,5 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.Document;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -12,8 +8,6 @@ import java.util.UUID;
 
 
 @XmlRootElement(name = "album")
-@AllArgsConstructor
-@NoArgsConstructor
 public class MiniAlbum {
 
     @XmlElement(name = "title")
@@ -35,4 +29,13 @@ public class MiniAlbum {
 
         return document;
     }
+
+    public MiniAlbum(String title, UUID id) {
+        this.title = title;
+        this.id = id;
+    }
+
+    public MiniAlbum() {
+    }
+
 }

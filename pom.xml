@@ -11,8 +11,8 @@
     <name>ZuneAPI</name>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -48,14 +48,6 @@
             <artifactId>activation</artifactId>
             <version>1.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.28</version>
-            <scope>compile</scope>
-        </dependency>
-
 <!--        <dependency>-->
 <!--            <groupId>com.azure</groupId>-->
 <!--            <artifactId>azure-cosmos</artifactId>-->

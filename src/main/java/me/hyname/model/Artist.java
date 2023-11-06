@@ -1,9 +1,5 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.Document;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -14,8 +10,6 @@ import java.util.List;
 import java.util.UUID;
 
 @XmlRootElement(name = "entry", namespace = "http://www.w3.org/2005/Atom")
-@AllArgsConstructor
-@NoArgsConstructor
 public class Artist {
 
     @XmlElement(name = "sortTitle")
@@ -68,6 +62,29 @@ public class Artist {
 
     @XmlElement(name = "image")
     private List<MiniImage> images;
+
+    public Artist(String sortTitle, String title, UUID id, UUID imageId, Double popularity, Boolean isVariousArtist, String biographyLink, String biography, String shortBiography, Integer playCount, Genre primaryGenre, List<Genre> genres, List<Mood> moods, MiniImage backgroundImage, Boolean hasRadioChannel, List<MiniImage> images) {
+        this.sortTitle = sortTitle;
+        this.title = title;
+        this.id = id;
+        this.imageId = imageId;
+        this.popularity = popularity;
+        this.isVariousArtist = isVariousArtist;
+        this.biographyLink = biographyLink;
+        this.biography = biography;
+        this.shortBiography = shortBiography;
+        this.playCount = playCount;
+        this.primaryGenre = primaryGenre;
+        this.genres = genres;
+        this.moods = moods;
+        this.backgroundImage = backgroundImage;
+        this.hasRadioChannel = hasRadioChannel;
+        this.images = images;
+    }
+
+    public Artist() {
+
+    }
 
     // yes theres probably a much more efficient way to do this
     // shut up, its 2 AM im tired i dont care

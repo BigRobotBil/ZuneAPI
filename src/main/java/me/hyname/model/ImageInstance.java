@@ -1,7 +1,5 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.bson.Document;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -9,8 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.UUID;
 
 @XmlRootElement(name = "imageInstance", namespace = "http://schemas.zune.net/catalog/music/2007/10")
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class ImageInstance {
 
     @XmlElement(name = "id")
@@ -47,5 +44,16 @@ public class ImageInstance {
         document.put("height", this.height);
 
         return document;
+    }
+
+    public ImageInstance(UUID id, String url, String format, int width, int height) {
+        this.id = id;
+        this.url = url;
+        this.format = format;
+        this.width = width;
+        this.height = height;
+    }
+
+    public ImageInstance() {
     }
 }

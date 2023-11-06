@@ -1,9 +1,5 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.bson.Document;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -14,8 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @XmlRootElement(name = "feed")
 public class Album {
 
@@ -52,6 +46,24 @@ public class Album {
 
     @XmlElement(name = "entry")
     public List<MiniTrack> tracks;
+
+    public Album(String title, String sortTitle, UUID id, MiniArtist primaryArtist, Genre primaryGenre, int popularity, Boolean explicit, Boolean premium, List<MiniImage> images, Date releaseDate, List<MiniTrack> tracks) {
+        this.title = title;
+        this.sortTitle = sortTitle;
+        this.id = id;
+        this.primaryArtist = primaryArtist;
+        this.primaryGenre = primaryGenre;
+        this.popularity = popularity;
+        this.explicit = explicit;
+        this.premium = premium;
+        this.images = images;
+        this.releaseDate = releaseDate;
+        this.tracks = tracks;
+    }
+
+    public Album() {
+
+    }
 
 
     public Document toMongo() {

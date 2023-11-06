@@ -117,7 +117,7 @@ public class ArtistStorage {
                 "Taylor Swift",
                 UUID.fromString("10450000-0200-11db-89ca-0019b92a3933"),
                 UUID.fromString("10450000-0200-11db-89ca-0019b92a3933"),
-                10,
+                10d,
                 false,
                 "/v3.2/en-US/music/artist/10450000-0200-11db-89ca-0019b92a3933/biography/",
                 "bbb",

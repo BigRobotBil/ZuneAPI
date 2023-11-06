@@ -1,13 +1,9 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @XmlRootElement(name = "entry")
 public class Feature {
     @XmlElement(name = "id")
@@ -33,4 +29,18 @@ public class Feature {
 
     @XmlElement(name = "isExplicit")
     private boolean isExplicit;
+
+    public Feature() {
+    }
+
+    public Feature(String id, MediaLink link, String title, String content, int sequenceNumber, MiniImage image, MiniImage backgroundImage, boolean isExplicit) {
+        this.id = id;
+        this.link = link;
+        this.title = title;
+        this.content = content;
+        this.sequenceNumber = sequenceNumber;
+        this.image = image;
+        this.backgroundImage = backgroundImage;
+        this.isExplicit = isExplicit;
+    }
 }

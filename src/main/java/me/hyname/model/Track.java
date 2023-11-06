@@ -1,7 +1,5 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.bson.Document;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -10,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @XmlRootElement(name = "entry")
 public class Track {
 
@@ -75,6 +71,33 @@ public class Track {
     @XmlElement(name = "IsDownloading")
     public boolean isDownloading;
 
+    public Track(String sortTitle, String title, UUID id, Integer lengthSeconds, Integer trackNumber, Integer discNumber, MiniAlbum album, MiniArtist albumArtist, Integer playCount, String musicVideoId, Integer pointsPrice, Boolean canPlay, Boolean canDownload, Boolean canPurchase, Boolean canPurchaseMP3, Boolean canPurchaseAlbumOnly, Boolean canSync, Boolean canBurn, Boolean inCollection, Boolean isDownloading) {
+        this.sortTitle = sortTitle;
+        this.title = title;
+        this.id = id;
+        this.lengthSeconds = lengthSeconds;
+        this.trackNumber = trackNumber;
+        this.discNumber = discNumber;
+        this.album = album;
+        this.albumArtist = albumArtist;
+        this.playCount = playCount;
+        this.musicVideoId = UUID.fromString(musicVideoId);
+        this.pointsPrice = pointsPrice;
+        this.canPlay = canPlay;
+        this.canDownload = canDownload;
+        this.canPurchase = canPurchase;
+        this.canPurchaseMP3 = canPurchaseMP3;
+        this.canPurchaseAlbumOnly = canPurchaseAlbumOnly;
+        this.canSync = canSync;
+        this.canBurn = canBurn;
+        this.inCollection = inCollection;
+        this.isDownloading = isDownloading;
+    }
+
+    public Track() {
+
+    }
+
     public Document toMongo() {
         Document toDb = new Document();
         toDb.put("sortTitle", this.sortTitle);
@@ -85,7 +108,7 @@ public class Track {
         toDb.put("album", this.album.toMongo());
         toDb.put("albumArtist", this.albumArtist.toMongo());
         toDb.put("playCount", this.playCount);
-        toDb.put("musicVideoId", this.musicVideoId);
+        toDb.put("musicVideoId", this.musicVideoId.toString());
         toDb.put("pointsPrice", this.pointsPrice);
         toDb.put("canPlay", canPlay);
         toDb.put("canDownload", canDownload);

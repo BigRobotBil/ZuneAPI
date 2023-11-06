@@ -1,16 +1,10 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.UUID;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @XmlRootElement(name = "entry", namespace = "http://www.w3.org/2005/Atom")
 public class Biography {
     @XmlElement(name = "updated")
@@ -26,5 +20,16 @@ public class Biography {
 
     @XmlElement(name = "author")
     String authorName;
+
+    public Biography() {
+    }
+
+    public Biography(Date updated, String title, UUID id, String content, String authorName) {
+        this.updated = updated;
+        this.title = title;
+        this.id = id;
+        this.content = content;
+        this.authorName = authorName;
+    }
 }
 

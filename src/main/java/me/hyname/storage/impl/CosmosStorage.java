@@ -1,6 +1,5 @@
 package me.hyname.storage.impl;
 
-import lombok.Getter;
 import me.hyname.model.Album;
 import me.hyname.model.Artist;
 import me.hyname.model.Track;
@@ -20,8 +19,8 @@ import java.util.List;
  */
 public class CosmosStorage extends Storage {
 
-    @Getter public String host;
-    @Getter public String masterKey;
+    public String host;
+    public String masterKey;
 
 
     public CosmosStorage(String host, String masterKey) {
@@ -89,5 +88,13 @@ public class CosmosStorage extends Storage {
     @Override
     public List<Artist> getArtists() {
         return null;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public String getMasterKey() {
+        return masterKey;
     }
 }

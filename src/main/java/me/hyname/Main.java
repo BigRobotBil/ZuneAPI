@@ -1,6 +1,5 @@
 package me.hyname;
 
-import lombok.Getter;
 import me.hyname.adapter.Adapter;
 import me.hyname.adapter.impl.LastFMAdapter;
 import me.hyname.handler.ZuneErrorHandler;
@@ -45,8 +44,8 @@ import spark.Spark;
  */
 public class Main {
 
-    @Getter  private static Storage storage;
-    @Getter  private static Adapter dataAdapter;
+    private static Storage storage;
+    private static Adapter dataAdapter;
 
     public static void main(String[] args) throws Exception {
 
@@ -155,5 +154,13 @@ public class Main {
         Spark.get("/*/music/features/", new GETFeaturedCards()); // testing
         Spark.get("/*/music/artist/:id/similarArtists/", new GETSimilarArtists());
         Spark.get("/*/music/artist/:id/similarArtists", new GETSimilarArtists());
+    }
+
+    public static Storage getStorage() {
+        return storage;
+    }
+
+    public static Adapter getDataAdapter() {
+        return dataAdapter;
     }
 }

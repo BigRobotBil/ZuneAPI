@@ -1,15 +1,11 @@
 package me.hyname.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.bson.Document;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @XmlRootElement(name = "entry")
 public class MiniTrack {
 
@@ -64,5 +60,19 @@ public class MiniTrack {
         document.put("pointsPrice", this.pointsPrice);
 
         return document;
+    }
+
+    public MiniTrack(String title, String sortTitle, UUID id, int trackNumber, boolean canPurchase, boolean canPurchaseAlbumOnly, int lengthSeconds, int pointsPrice) {
+        this.title = title;
+        this.sortTitle = sortTitle;
+        this.id = id;
+        this.trackNumber = trackNumber;
+        this.canPurchase = canPurchase;
+        this.canPurchaseAlbumOnly = canPurchaseAlbumOnly;
+        this.lengthSeconds = lengthSeconds;
+        this.pointsPrice = pointsPrice;
+    }
+
+    public MiniTrack() {
     }
 }
