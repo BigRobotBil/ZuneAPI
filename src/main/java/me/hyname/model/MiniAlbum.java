@@ -23,7 +23,7 @@ public class MiniAlbum {
     public UUID id;
 
     public static MiniAlbum fromMongo(Document album) {
-        return new MiniAlbum(album.getString("title"), album.get("id", UUID.class));
+        return new MiniAlbum(album.getString("title"), UUID.fromString(album.getString("id")));
     }
 
 
@@ -31,7 +31,7 @@ public class MiniAlbum {
         Document document = new Document();
 
         document.put("title", this.title);
-        document.put("id", this.id);
+        document.put("id", this.id.toString());
 
         return document;
     }

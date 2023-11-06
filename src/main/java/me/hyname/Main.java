@@ -18,6 +18,7 @@ import me.hyname.route.artist.*;
 import me.hyname.route.image.GETDeviceBackgroundImage;
 import me.hyname.route.image.GETPrimaryImageRoute;
 import me.hyname.route.misc.GETHomeRoute;
+import me.hyname.route.mix.GETArtistSimilarTracks;
 import me.hyname.route.mix.GETSimilarTracks;
 import me.hyname.route.tuners.GETPCConfiguration;
 import me.hyname.storage.Storage;
@@ -92,6 +93,7 @@ public class Main {
 
         Spark.get("/*/*/music/artist/:id/tracks/", new GETArtistTracks());
         Spark.get("/*/*/track/:id/similarTracks", new GETSimilarTracks());
+        Spark.get("/*/*/artist/:id/similartracks", new GETArtistSimilarTracks());
         Spark.get("/*/*/music/album/:id/relatedAlbums/", new GETRelatedAlbums());
         Spark.get("/*/*/music/artist/:id/relatedAlbums/", new GETRelatedArtistAlbums());
 

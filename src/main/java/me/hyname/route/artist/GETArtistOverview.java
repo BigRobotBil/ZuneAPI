@@ -1,7 +1,7 @@
 package me.hyname.route.artist;
 
 import me.hyname.Main;
-import me.hyname.model.Artist;
+import me.hyname.model.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -17,7 +17,8 @@ public class GETArtistOverview implements Route {
 
         response.type("text/xml");
         response.raw().setContentType("text/xml");
-        JAXBContext contextObj = JAXBContext.newInstance(Artist.class);
+        JAXBContext contextObj = JAXBContext.newInstance(Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class, Mood.class, MiniTrack.class);
+
 
         Marshaller marshallerObj = contextObj.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
