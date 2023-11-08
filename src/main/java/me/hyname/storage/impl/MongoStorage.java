@@ -7,13 +7,17 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+
+import jakarta.annotation.PostConstruct;
 import me.hyname.model.*;
 import me.hyname.storage.Storage;
+
 import org.bson.Document;
-import org.bson.conversions.Bson;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -29,32 +33,39 @@ import java.util.function.Consumer;
  * <p>- Easy to use API
  * <p>- easy to convert to json + reading objects is a breeze.
  */
+@Component
+@ConditionalOnProperty(value="storage.type", havingValue="MONGODB")
 public class MongoStorage extends Storage {
 
-    private String host;
+    @Value("${storage.host}")
+    private String hostname;
+
+    @Value("${storage.port}")
     private int port;
+
     private MongoClient client;
     private MongoDatabase database;
-
 
     private MongoCollection<Document> albumCollection;
     private MongoCollection<Document> artistCollection;
     private MongoCollection<Document> trackCollection;
 
-    public MongoStorage(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public MongoStorage() {
     }
 
-
+    @PostConstruct
     @Override
     public void init() {
+        setup();
+    }
+
+    public void setup() {
         MongoClientOptions options = new MongoClientOptions.Builder()
                 .connectTimeout(1000)
                 .serverSelectionTimeout(100)
                 .maxWaitTime(2000)
                 .build();
-        this.client = new MongoClient(new ServerAddress(host, port), options);
+        this.client = new MongoClient(new ServerAddress(hostname, port), options);
 
         this.database = client.getDatabase("zune");
         this.albumCollection = database.getCollection("albums");
@@ -292,14 +303,5 @@ public class MongoStorage extends Storage {
         });
 
         return finalOutput;
-    }
-
-
-    public int getPort() {
-        return port;
-    }
-
-    public String getHost() {
-        return host;
     }
 }
