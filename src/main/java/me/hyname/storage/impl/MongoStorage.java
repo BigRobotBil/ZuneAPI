@@ -33,14 +33,9 @@ import java.util.function.Consumer;
  * <p>- Easy to use API
  * <p>- easy to convert to json + reading objects is a breeze.
  */
-@Component
-@ConditionalOnProperty(value="storage.type", havingValue="MONGODB")
 public class MongoStorage extends Storage {
 
-    @Value("${storage.host}")
     private String hostname;
-
-    @Value("${storage.port}")
     private int port;
 
     private MongoClient client;
@@ -50,10 +45,13 @@ public class MongoStorage extends Storage {
     private MongoCollection<Document> artistCollection;
     private MongoCollection<Document> trackCollection;
 
-    public MongoStorage() {
+    public MongoStorage(String hostname, int port) {
+        this.hostname = hostname;
+        this.port = port;
+
+        init();
     }
 
-    @PostConstruct
     @Override
     public void init() {
         setup();
@@ -303,5 +301,13 @@ public class MongoStorage extends Storage {
         });
 
         return finalOutput;
+    }
+
+    @Override
+    public boolean shutdown() {
+        // Mongo's library doesn't appear to have a definitive "yes, we closed the connection"
+        // So, hope for the best
+        client.close();
+        return true;
     }
 }

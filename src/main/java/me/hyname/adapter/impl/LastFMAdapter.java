@@ -1,5 +1,7 @@
 package me.hyname.adapter.impl;
 
+import org.springframework.stereotype.Component;
+
 import de.umass.lastfm.Authenticator;
 import de.umass.lastfm.Session;
 import me.hyname.adapter.Adapter;
@@ -7,6 +9,7 @@ import me.hyname.model.Album;
 import me.hyname.model.Artist;
 import me.hyname.model.Track;
 
+@Component
 public class LastFMAdapter extends Adapter {
     String key;
     String secret;

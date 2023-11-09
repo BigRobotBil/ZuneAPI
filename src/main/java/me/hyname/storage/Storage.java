@@ -29,4 +29,6 @@ public abstract class Storage {
     public abstract List<Track> getTracks();
 
     public abstract List<Artist> getArtists();
+
+    public abstract boolean shutdown();
 }
