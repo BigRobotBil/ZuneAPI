@@ -22,15 +22,19 @@ public class ZuneAPIService {
         SpringApplication.run(ZuneAPIService.class, args);
     }
 
-    @PostConstruct
-    public void init(Storage storage, Adapter adapter) {
+    public ZuneAPIService(Storage storage, Adapter adapter) {
         this.storage = storage;
         this.adapter = adapter;
     }
 
+    @PostConstruct
+    public void init() {
+        logger.info("Initializing ZuneAPI Service");
+    }
+
     @PreDestroy
     void shutdown() {
-        
+        logger.info("Shutting down ZuneAPI Service");
     }
 
 }
