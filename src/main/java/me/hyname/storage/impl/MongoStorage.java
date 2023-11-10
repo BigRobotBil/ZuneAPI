@@ -11,6 +11,8 @@ import com.mongodb.client.model.Filters;
 import me.hyname.model.*;
 import me.hyname.storage.Storage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,8 @@ import java.util.function.Consumer;
  * <p>- easy to convert to json + reading objects is a breeze.
  */
 public class MongoStorage extends Storage {
-
+    Logger logger = LogManager.getRootLogger();
+    
     private String hostname;
     private int port;
 
@@ -49,7 +52,9 @@ public class MongoStorage extends Storage {
 
     @Override
     public void init() {
+        logger.info("Initializing MongoDB connection on '{}:{}'", hostname, port);
         setup();
+        logger.info("Successfully initialized MongoDB connection");
     }
 
     public void setup() {

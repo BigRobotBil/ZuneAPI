@@ -9,10 +9,6 @@ import jakarta.xml.bind.Marshaller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
@@ -20,15 +16,16 @@ import java.nio.charset.Charset;
 /**
  * Fetch any/all tracks related to the requested artist
  */
-@RestController
 public class GETArtistTracks {
 
     Logger logger = LogManager.getRootLogger();
 
     Storage storage;
+    JAXBContext jaxb;
 
-    public GETArtistTracks(Storage storage) {
+    public GETArtistTracks(Storage storage, JAXBContext jaxb) {
         this.storage = storage;
+        this.jaxb = jaxb;
     }
 
     /**
@@ -37,8 +34,8 @@ public class GETArtistTracks {
      * @param id The ID of the artist
      * @return XML formatted document containing a list of tracks
      */
-    @RequestMapping(value = "/*/*/music/artist/{id}/tracks/", method = RequestMethod.GET)
     public String handle(@PathVariable String id) {
+        logger.trace("Received request for Artist '{}'", id);
 
         try {
             ByteArrayOutputStream baos = fetchItem(id);
@@ -67,8 +64,8 @@ public class GETArtistTracks {
      */
     private ByteArrayOutputStream fetchItem(String id) throws JAXBException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
-        JAXBContext contextObj = JAXBContext.newInstance(Feed.class, Album.class, MiniAlbum.class, MiniArtist.class, MiniImage.class, Track.class, Artist.class, Genre.class);
-        Marshaller marshallerObj = contextObj.createMarshaller();
+
+        Marshaller marshallerObj = jaxb.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         Artist artist = storage.readArtist(id.toLowerCase());
 

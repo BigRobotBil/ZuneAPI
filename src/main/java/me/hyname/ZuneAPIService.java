@@ -1,5 +1,8 @@
 package me.hyname;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
@@ -30,11 +33,23 @@ public class ZuneAPIService {
     @PostConstruct
     public void init() {
         logger.info("Initializing ZuneAPI Service");
+        logger.info("Initialized ZuneAPI Service");
     }
 
     @PreDestroy
     void shutdown() {
+        List<String> failures = new ArrayList<>();
         logger.info("Shutting down ZuneAPI Service");
+        
+        if(!storage.shutdown()) {
+            failures.add("Database connection");
+        }
+
+        if (failures.isEmpty()) {
+            logger.info("Successfully shutdown ZuneAPI Service");
+        } else {
+            logger.error("The following items failed to shut down properly: " + failures);
+        }
     }
 
 }

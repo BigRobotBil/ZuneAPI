@@ -1,6 +1,8 @@
 package me.hyname.storage;
 
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,8 @@ import me.hyname.storage.impl.NoneStorage;
  */
 @Component
 public class StorageProducer {
+
+    Logger logger = LogManager.getRootLogger();
 
     @Value("${storage.hostname}")
     private String hostname;
@@ -42,11 +46,13 @@ public class StorageProducer {
 
         switch (typeEnum) {
             case MONGODB:
+                logger.info("Creating MongoDB storage type");
                 storage = new MongoStorage(hostname, port);
                 break;
         
             case NONE:
-                // already created "None" which would be the default.  Could also throw since the storage is effectively not assigned    
+                // already created "None" which would be the default.  Could also throw since the storage is effectively not assigned
+                logger.info("Creating None storage type");
                 break;
 
             default:
