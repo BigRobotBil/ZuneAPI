@@ -1,11 +1,12 @@
 package me.hyname.storage.impl;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.ServerAddress;
-import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 
 import me.hyname.model.*;
@@ -58,12 +59,17 @@ public class MongoStorage extends Storage {
     }
 
     public void setup() {
-        MongoClientOptions options = new MongoClientOptions.Builder()
-                .connectTimeout(1000)
-                .serverSelectionTimeout(100)
-                .maxWaitTime(2000)
-                .build();
-        this.client = new MongoClient(new ServerAddress(hostname, port), options);
+        // https://stackoverflow.com/questions/70532601/java-package-mongoclientoptions-does-not-exist
+        
+        String connectionString = "mongodb://" + hostname + ":" + port;
+
+        MongoClientSettings.Builder mcsb = MongoClientSettings.builder();
+        MongoClientSettings mcs = mcsb
+            .applicationName("ZuneAPIService")
+            .applyConnectionString(new ConnectionString(connectionString))
+            .build();
+        
+        this.client = MongoClients.create(mcs);
 
         this.database = client.getDatabase("zune");
         this.albumCollection = database.getCollection("albums");
