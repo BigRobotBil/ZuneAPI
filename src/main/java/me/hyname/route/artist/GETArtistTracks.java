@@ -1,31 +1,29 @@
 package me.hyname.route.artist;
 
-import me.hyname.model.*;
-import me.hyname.storage.Storage;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.PathVariable;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import me.hyname.enums.ParamEnum;
+import me.hyname.model.Artist;
+import me.hyname.model.Feed;
+import me.hyname.model.Track;
+import me.hyname.route.AbstractRoute;
+import me.hyname.storage.Storage;
 
 /**
  * Fetch any/all tracks related to the requested artist
  */
-public class GETArtistTracks {
-
-    Logger logger = LogManager.getRootLogger();
-
-    Storage storage;
-    JAXBContext jaxb;
+public class GETArtistTracks extends AbstractRoute{
 
     public GETArtistTracks(Storage storage, JAXBContext jaxb) {
-        this.storage = storage;
-        this.jaxb = jaxb;
+        super(storage, jaxb);
     }
 
     /**
@@ -34,7 +32,10 @@ public class GETArtistTracks {
      * @param id The ID of the artist
      * @return XML formatted document containing a list of tracks
      */
-    public String handle(@PathVariable String id) {
+    @Override
+    public String handle(Map<ParamEnum, String> params) {
+        String id = params.getOrDefault(ParamEnum.ID, "");
+        
         logger.trace("Received request for Artist '{}'", id);
 
         try {
@@ -69,13 +70,16 @@ public class GETArtistTracks {
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         Artist artist = storage.readArtist(id.toLowerCase());
 
-        // ensure artist actually exists
-        if (artist != null && artist.id != null) {
-            Feed<Track> que = new Feed<>();
-            que.setEntries(storage.readTracksByArtist(artist));
+        List<Track> tracks = new ArrayList<>();
 
-            marshallerObj.marshal(que, result);
+        if (artist != null && artist.id != null) {
+            tracks = storage.readTracksByArtist(artist);
         }
+
+        Feed<Track> que = new Feed<>();
+        que.setEntries(tracks);
+
+        marshallerObj.marshal(que, result);
         
         return result;
     }

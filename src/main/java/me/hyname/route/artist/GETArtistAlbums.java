@@ -6,33 +6,31 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.EnumUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import me.hyname.enums.OrderByEnum;
+import me.hyname.enums.ParamEnum;
 import me.hyname.model.Album;
 import me.hyname.model.Artist;
 import me.hyname.model.Feed;
+import me.hyname.route.AbstractRoute;
 import me.hyname.storage.Storage;
 
-public class GETArtistAlbums {
-
-    Logger logger = LogManager.getRootLogger();
-
-    Storage storage;
-    JAXBContext jaxb;
+public class GETArtistAlbums extends AbstractRoute {
 
     public GETArtistAlbums(Storage storage, JAXBContext jaxb) {
-        this.storage = storage;
-        this.jaxb = jaxb;
+        super(storage, jaxb);
     }
 
-    public String handle(String id, String orderBy) {
+    @Override
+    public String handle(Map<ParamEnum, String> params) {
+        String id = params.getOrDefault(ParamEnum.ID, "");
+        String orderBy = params.getOrDefault(ParamEnum.ORDERBY, "");
         logger.trace("Received request for Artist '{}' with query param `{}`", id, orderBy);
 
         try {

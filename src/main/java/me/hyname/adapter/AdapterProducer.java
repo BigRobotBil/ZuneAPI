@@ -43,7 +43,7 @@ public class AdapterProducer {
                 break;
         
             case NONE:
-                // already created "None" which would be the default.  Could also throw since the storage is effectively not assigned    
+                // already created "None" which would be the default.  Could also throw since the adapter is effectively not assigned    
                 break;
 
             default:
