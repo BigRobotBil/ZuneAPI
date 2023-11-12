@@ -21,6 +21,9 @@ import me.hyname.model.Feed;
 import me.hyname.route.AbstractRoute;
 import me.hyname.storage.Storage;
 
+/**
+ * Get a list of an artist's albums
+ */
 public class GETArtistAlbums extends AbstractRoute {
 
     public GETArtistAlbums(Storage storage, JAXBContext jaxb) {

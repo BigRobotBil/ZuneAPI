@@ -29,7 +29,6 @@ public class ArtistController {
     GETArtistAlbums getArtistAlbums;
     GETArtistBiography getArtistBiography;
 
-
     public ArtistController(Storage storage, JAXBContext jaxb) {
         getArtistTracks = new GETArtistTracks(storage, jaxb);
         getArtistAlbums = new GETArtistAlbums(storage, jaxb);
