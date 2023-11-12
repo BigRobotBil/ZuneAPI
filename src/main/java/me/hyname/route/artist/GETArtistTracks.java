@@ -40,10 +40,6 @@ public class GETArtistTracks extends AbstractRoute{
 
         try {
             ByteArrayOutputStream baos = fetchItem(id);
-            
-            if (baos.size() == 0) {
-                logger.debug("Artist '{}' did not return any tracks", id);
-            }
 
             return baos.toString(Charset.defaultCharset().name());
         } catch (JAXBException e) {

@@ -1,24 +1,25 @@
-package me.hyname.route.album;
+package me.hyname.route.artist;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import me.hyname.enums.ParamEnum;
-import me.hyname.model.Album;
+import me.hyname.model.Artist;
+import me.hyname.model.Feed;
+import me.hyname.model.MiniImage;
 import me.hyname.route.AbstractRoute;
 import me.hyname.storage.Storage;
 
-/**
- * Returns album overview information
- */
-public class GETAlbumOverview extends AbstractRoute {
+public class GETArtistImages extends AbstractRoute {
 
-    public GETAlbumOverview(Storage storage, JAXBContext jaxb) {
+    public GETArtistImages(Storage storage, JAXBContext jaxb) {
         super(storage, jaxb);
     }
 
@@ -30,29 +31,30 @@ public class GETAlbumOverview extends AbstractRoute {
 
             return baos.toString(Charset.defaultCharset().name());
         } catch (JAXBException e) {
-            logger.error("Failed to marshal XML information for Album '" + id + "' when fetching Overview", e);
+            logger.error("Failed to marshal XML information for Artist '" + id + "' when fetching Artist Images", e);
             return "";
         } catch (UnsupportedEncodingException e) {
-            logger.error("Failed to convert binary to XML for Album '" + id + "' when fetching Overview", e);
+            logger.error("Failed to convert binary to XML for Artist '" + id + "' when fetching Artist Images", e);
             return "";
         }
     }
 
-    /**
-     * Fetch the album over information from storage
-     * @param id UUID of the album being fetched
-     * @return ByteArray of marshalled XML information
-     * @throws JAXBException failure to marshal XML
-     */
-    private ByteArrayOutputStream fetchItem(String id) throws JAXBException{
+    private ByteArrayOutputStream fetchItem(String id) throws JAXBException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
 
         Marshaller marshallerObj = jaxb.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        
-        Album que = storage.readAlbum(id.toLowerCase());
-        marshallerObj.marshal(que, result);
+        Artist artist = storage.readArtist(id.toLowerCase());
+        List<MiniImage> images = new ArrayList<>();
+        Feed<MiniImage> que = new Feed<>();
 
+        for (MiniImage i : artist.getArtistImages()) {
+            images.add(i);
+        }
+
+        que.setEntries(images);
+
+        marshallerObj.marshal(que, result);
         return result;
     }
 }

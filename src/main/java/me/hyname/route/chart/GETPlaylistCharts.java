@@ -1,8 +1,10 @@
-package me.hyname.route.album;
+package me.hyname.route.chart;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 import jakarta.xml.bind.JAXBContext;
@@ -10,15 +12,13 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import me.hyname.enums.ParamEnum;
 import me.hyname.model.Album;
+import me.hyname.model.Feed;
 import me.hyname.route.AbstractRoute;
 import me.hyname.storage.Storage;
 
-/**
- * Returns album overview information
- */
-public class GETAlbumOverview extends AbstractRoute {
+public class GETPlaylistCharts extends AbstractRoute {
 
-    public GETAlbumOverview(Storage storage, JAXBContext jaxb) {
+    public GETPlaylistCharts(Storage storage, JAXBContext jaxb) {
         super(storage, jaxb);
     }
 
@@ -30,27 +30,26 @@ public class GETAlbumOverview extends AbstractRoute {
 
             return baos.toString(Charset.defaultCharset().name());
         } catch (JAXBException e) {
-            logger.error("Failed to marshal XML information for Album '" + id + "' when fetching Overview", e);
+            logger.error("Failed to marshal XML information for Playlist '" + id + "' when fetching Charts", e);
             return "";
         } catch (UnsupportedEncodingException e) {
-            logger.error("Failed to convert binary to XML for Album '" + id + "' when fetching Overview", e);
+            logger.error("Failed to convert binary to XML for Playlist '" + id + "' when fetching Charts", e);
             return "";
         }
     }
 
-    /**
-     * Fetch the album over information from storage
-     * @param id UUID of the album being fetched
-     * @return ByteArray of marshalled XML information
-     * @throws JAXBException failure to marshal XML
-     */
-    private ByteArrayOutputStream fetchItem(String id) throws JAXBException{
+    private ByteArrayOutputStream fetchItem(String id) throws JAXBException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
 
         Marshaller marshallerObj = jaxb.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        
-        Album que = storage.readAlbum(id.toLowerCase());
+        Feed<Album> que = new Feed<>();
+        List<Album> albums = storage.getAlbums();
+
+        albums.sort(Comparator.comparing(o -> o.popularity));
+
+        que.setEntries(albums);
+
         marshallerObj.marshal(que, result);
 
         return result;

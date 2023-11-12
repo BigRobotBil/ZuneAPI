@@ -29,10 +29,6 @@ public class GETArtistBiography extends AbstractRoute {
         try {
             ByteArrayOutputStream baos = fetchItem(id);
 
-            if (baos.size() == 0) {
-                logger.debug("Artist '{}' did not return any biography", id);
-            }
-
             return baos.toString(Charset.defaultCharset().name());
         } catch (JAXBException e) {
             logger.error("Failed to marshal XML information for Artist '" + id + "' when fetching Biography", e);

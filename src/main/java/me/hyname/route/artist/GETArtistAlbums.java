@@ -39,10 +39,6 @@ public class GETArtistAlbums extends AbstractRoute {
         try {
             ByteArrayOutputStream baos = fetchItem(id, orderBy);
 
-            if (baos.size() == 0) {
-                logger.debug("Artist '{}' did not return any albums", id);
-            }
-
             return baos.toString(Charset.defaultCharset().name());
         } catch (JAXBException e) {
             logger.error("Failed to marshal XML information for Artist '" + id + "' when fetching Album(s)", e);

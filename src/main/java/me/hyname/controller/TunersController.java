@@ -1,0 +1,25 @@
+package me.hyname.controller;
+
+import java.util.HashMap;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import jakarta.xml.bind.JAXBContext;
+import me.hyname.route.tuners.GETPCConfiguration;
+import me.hyname.storage.Storage;
+
+@RequestMapping
+public class TunersController {
+
+    GETPCConfiguration getpcConfiguration;
+
+    public TunersController(Storage storage, JAXBContext jaxb) {
+        getpcConfiguration = new GETPCConfiguration(storage, jaxb);
+    }
+    
+    @RequestMapping(value = "/en-US/ZunePCClient/*/configuration.xml", method = RequestMethod.GET)
+    public String getpcConfiguration() {
+        return getpcConfiguration.handle(new HashMap<>());
+    }
+}
