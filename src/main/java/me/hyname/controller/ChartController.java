@@ -27,17 +27,17 @@ public class ChartController {
         getTrackCharts = new GETTrackCharts(storage, jaxb);
     }
 
-    @RequestMapping(value = "/*/*/music/chart/zune/albums/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/chart/zune/albums/", "/*/*/music/chart/zune/albums"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getAlbumCharts(@PathVariable String id, @RequestParam Map<String, String> params) {
         return getAlbumCharts.handle(new HashMap<>());
     }
 
-    @RequestMapping(value = "/*/*/music/chart/zune/playlists/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/chart/zune/playlists/", "/*/*/music/chart/zune/playlists"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getPlaylistCharts(@PathVariable String id, @RequestParam Map<String, String> params) {
         return getPlaylistCharts.handle(new HashMap<>());
     }
 
-    @RequestMapping(value = "/*/*/music/chart/zune/tracks/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/chart/zune/tracks/", "/*/*/music/chart/zune/tracks"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getTrackCharts(@PathVariable String id, @RequestParam Map<String, String> params) {
         return getTrackCharts.handle(new HashMap<>());
     }

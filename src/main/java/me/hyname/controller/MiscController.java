@@ -18,7 +18,7 @@ public class MiscController {
         getHomeRoute = new GETHomeRoute(storage, jaxb);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getFeaturedCards() {
         return getHomeRoute.handle(new HashMap<>());
     }

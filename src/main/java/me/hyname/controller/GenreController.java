@@ -18,7 +18,7 @@ public class GenreController {
         getGenres = new GETGenres(storage, jaxb);
     }
 
-    @RequestMapping(value = "/*/*/music/genre/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/genre/", "/*/*/music/genre"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getGenres() {
         return getGenres.handle(new HashMap<>());
     }

@@ -21,11 +21,6 @@ import me.hyname.storage.Storage;
 
 /**
  * Rest Controller for any/all Artist-related operations at the "artist" path
- * 
- * TODO: https://www.baeldung.com/spring-boot-3-url-matching
- * Spring used to have support for essentially match both cases of a URL with a
- * "/" or not on the end within one method. Figure out a better way to handle
- * this
  */
 @RestController
 public class ArtistController {
@@ -46,7 +41,7 @@ public class ArtistController {
         getSimilarArtists = new GETSimliarArtists(storage, jaxb);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/albums/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/artist/{id}/albums/", "/*/*/music/artist/{id}/albums"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistAlbums(@PathVariable String id, @RequestParam Map<String, String> params) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -56,7 +51,7 @@ public class ArtistController {
         return getArtistAlbums.handle(methodParams);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/biography/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/artist/{id}/biography/", "/*/*/music/artist/{id}/biography"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistBiography(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -64,7 +59,7 @@ public class ArtistController {
         return getArtistBiography.handle(methodParams);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/images/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/artist/{id}/images/", "/*/*/music/artist/{id}/images"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistImages(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -72,7 +67,7 @@ public class ArtistController {
         return getArtistImages.handle(methodParams);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/artist/{id}/", "/*/*/music/artist/{id}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistOverview(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -80,7 +75,7 @@ public class ArtistController {
         return getArtistOverview.handle(methodParams);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/tracks/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/artist/{id}/tracks/", "/*/*/music/artist/{id}/tracks"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistTracks(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -88,7 +83,7 @@ public class ArtistController {
         return getArtistTracks.handle(methodParams);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/similarArtists/", method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"/*/*/music/artist/{id}/similarArtists/", "/*/*/music/artist/{id}/similarArtists"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getSimilarArtists(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);

@@ -17,8 +17,6 @@ import me.hyname.route.image.GETOtherImage;
 import me.hyname.route.image.GETPrimaryImageRoute;
 import me.hyname.storage.Storage;
 
-// TODO: Follow up with proper routes
-// TODO: I have no idea if any of these work
 @RestController
 public class ImageController {
     GETArtistThumbnailImage getArtistThumbnailImage;
@@ -35,7 +33,7 @@ public class ImageController {
         getPrimaryImageRoute = new GETPrimaryImageRoute(storage, jaxb);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/deviceBackgroundImage", method = RequestMethod.GET, produces = "image/jpg")
+    @RequestMapping(value = {"/*/*/music/artist/{id}/deviceBackgroundImage/", "/*/*/music/artist/{id}/deviceBackgroundImage"}, method = RequestMethod.GET, produces = "image/jpg")
     public byte[] getDeviceBackgroundImage(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -43,7 +41,7 @@ public class ImageController {
         return getDeviceBackgroundImage.handle(methodParams);
     }
 
-    @RequestMapping(value = "/*/music/artist/{id}/PrimaryImage", method = RequestMethod.GET, produces = "image/jpg")
+    @RequestMapping(value = {"/*/music/artist/{id}/PrimaryImage/", "/*/music/artist/{id}/PrimaryImage"}, method = RequestMethod.GET, produces = "image/jpg")
     public byte[] getPrimaryImageRoute(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
