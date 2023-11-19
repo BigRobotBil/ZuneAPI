@@ -4,12 +4,13 @@ import java.util.HashMap;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.xml.bind.JAXBContext;
 import me.hyname.route.tuners.GETPCConfiguration;
 import me.hyname.storage.Storage;
 
-@RequestMapping
+@RestController
 public class TunersController {
 
     GETPCConfiguration getpcConfiguration;

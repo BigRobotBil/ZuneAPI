@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.xml.bind.JAXBContext;
 import me.hyname.enums.ParamEnum;
@@ -18,7 +19,7 @@ import me.hyname.storage.Storage;
 
 // TODO: Follow up with proper routes
 // TODO: I have no idea if any of these work
-@RequestMapping
+@RestController
 public class ImageController {
     GETArtistThumbnailImage getArtistThumbnailImage;
     GETBackgroundImage getBackgroundImage;
@@ -34,7 +35,7 @@ public class ImageController {
         getPrimaryImageRoute = new GETPrimaryImageRoute(storage, jaxb);
     }
 
-    @RequestMapping(value = "/*/*/music/artist/{id}/deviceBackgroundImage", method = RequestMethod.GET)
+    @RequestMapping(value = "/*/*/music/artist/{id}/deviceBackgroundImage", method = RequestMethod.GET, produces = "image/jpg")
     public String getDeviceBackgroundImage(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);

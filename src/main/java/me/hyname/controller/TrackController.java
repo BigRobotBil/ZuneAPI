@@ -6,13 +6,14 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.xml.bind.JAXBContext;
 import me.hyname.enums.ParamEnum;
 import me.hyname.route.track.GETTrackOverview;
 import me.hyname.storage.Storage;
 
-@RequestMapping
+@RestController
 public class TrackController {
 
     GETTrackOverview getTrackOverview;
