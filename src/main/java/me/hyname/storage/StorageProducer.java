@@ -53,6 +53,7 @@ public class StorageProducer {
             case NONE:
                 // already created "None" which would be the default.  Could also throw since the storage is effectively not assigned
                 logger.info("Creating None storage type");
+                storage.init();
                 break;
 
             default:

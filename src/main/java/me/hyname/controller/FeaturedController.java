@@ -21,12 +21,12 @@ public class FeaturedController {
         getNewlyReleasedAlbums = new GETNewlyReleasedAlbums(storage, jaxb);
     }
 
-    @RequestMapping(value = {"/*/*/music/features/", "/*/*/music/features"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.feature.get.cards.path}/", "${routes.feature.get.cards.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getFeaturedCards() {
         return getFeaturedCards.handle(new HashMap<>());
     }
 
-    @RequestMapping(value = {"/*/*/music/featured/albums/", "/*/*/music/featured/albums"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.feature.get.albums.path}/", "${routes.feature.get.albums.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getNewlyReleasedAlbums() {
         return getNewlyReleasedAlbums.handle(new HashMap<>());
     }

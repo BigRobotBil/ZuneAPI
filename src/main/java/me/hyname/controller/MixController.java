@@ -24,7 +24,7 @@ public class MixController {
         getSimilarTracks = new GETSimilarTracks(storage, jaxb);
     }
 
-    @RequestMapping(value = {"/*/*/artist/{id}/similartracks/", "/*/*/artist/{id}/similartracks"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.mix.get.artistsimilartracks.path}/", "${routes.mix.get.artistsimilartracks.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistSimilarTracks(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -32,7 +32,7 @@ public class MixController {
         return getArtistSimilarTracks.handle(methodParams);
     }
 
-    @RequestMapping(value = {"/*/*/track/{id}/similarTracks", "/*/*/track/{id}/similarTracks"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.mix.get.similartracks.path}/", "${routes.mix.get.similartracks.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getSimilarTracks(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);

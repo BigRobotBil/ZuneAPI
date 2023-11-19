@@ -33,7 +33,7 @@ public class ImageController {
         getPrimaryImageRoute = new GETPrimaryImageRoute(storage, jaxb);
     }
 
-    @RequestMapping(value = {"/*/*/music/artist/{id}/deviceBackgroundImage/", "/*/*/music/artist/{id}/deviceBackgroundImage"}, method = RequestMethod.GET, produces = "image/jpg")
+    @RequestMapping(value = {"${routes.image.get.devicebackground.path}/", "${routes.image.get.devicebackground.path}"}, method = RequestMethod.GET, produces = "image/jpg")
     public byte[] getDeviceBackgroundImage(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -41,7 +41,7 @@ public class ImageController {
         return getDeviceBackgroundImage.handle(methodParams);
     }
 
-    @RequestMapping(value = {"/*/music/artist/{id}/PrimaryImage/", "/*/music/artist/{id}/PrimaryImage"}, method = RequestMethod.GET, produces = "image/jpg")
+    @RequestMapping(value = {"${routes.image.get.primary.path}/", "${routes.image.get.primary.path}"}, method = RequestMethod.GET, produces = "image/jpg")
     public byte[] getPrimaryImageRoute(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);

@@ -3,6 +3,8 @@ package me.hyname.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +26,7 @@ import me.hyname.storage.Storage;
  */
 @RestController
 public class ArtistController {
+    public Logger logger = LogManager.getRootLogger();
 
     GETArtistBiography getArtistBiography;
     GETArtistAlbums getArtistAlbums;
@@ -41,17 +44,16 @@ public class ArtistController {
         getSimilarArtists = new GETSimliarArtists(storage, jaxb);
     }
 
-    @RequestMapping(value = {"/*/*/music/artist/{id}/albums/", "/*/*/music/artist/{id}/albums"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.artist.get.albums.path}/", "${routes.artist.get.albums.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistAlbums(@PathVariable String id, @RequestParam Map<String, String> params) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
         methodParams.put(ParamEnum.ORDERBY, params.getOrDefault("orderBy", ""));
 
-        //return getArtistAlbums.handle(methodParams);
         return getArtistAlbums.handle(methodParams);
     }
 
-    @RequestMapping(value = {"/*/*/music/artist/{id}/biography/", "/*/*/music/artist/{id}/biography"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.artist.get.biography.path}/", "${routes.artist.get.biography.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistBiography(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -59,7 +61,7 @@ public class ArtistController {
         return getArtistBiography.handle(methodParams);
     }
 
-    @RequestMapping(value = {"/*/*/music/artist/{id}/images/", "/*/*/music/artist/{id}/images"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.artist.get.images.path}/", "${routes.artist.get.images.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistImages(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -67,7 +69,7 @@ public class ArtistController {
         return getArtistImages.handle(methodParams);
     }
 
-    @RequestMapping(value = {"/*/*/music/artist/{id}/", "/*/*/music/artist/{id}"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.artist.get.overview.path}/", "${routes.artist.get.overview.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistOverview(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -75,7 +77,7 @@ public class ArtistController {
         return getArtistOverview.handle(methodParams);
     }
 
-    @RequestMapping(value = {"/*/*/music/artist/{id}/tracks/", "/*/*/music/artist/{id}/tracks"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.artist.get.tracks.path}/", "${routes.artist.get.tracks.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getArtistTracks(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
@@ -83,7 +85,7 @@ public class ArtistController {
         return getArtistTracks.handle(methodParams);
     }
 
-    @RequestMapping(value = {"/*/*/music/artist/{id}/similarArtists/", "/*/*/music/artist/{id}/similarArtists"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.artist.get.similarartists.path}/", "${routes.artist.get.similarartists.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getSimilarArtists(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);

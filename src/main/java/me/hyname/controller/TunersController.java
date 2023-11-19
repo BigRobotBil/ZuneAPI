@@ -13,14 +13,14 @@ import me.hyname.storage.Storage;
 @RestController
 public class TunersController {
 
-    GETPCConfiguration getpcConfiguration;
+    GETPCConfiguration getPcConfiguration;
 
     public TunersController(Storage storage, JAXBContext jaxb) {
-        getpcConfiguration = new GETPCConfiguration(storage, jaxb);
+        getPcConfiguration = new GETPCConfiguration(storage, jaxb);
     }
     
-    @RequestMapping(value = {"/en-US/ZunePCClient/*/configuration.xml"}, method = RequestMethod.GET, produces = "text/xml")
-    public byte[] getpcConfiguration() {
-        return getpcConfiguration.handle(new HashMap<>());
+    @RequestMapping(value = {"${routes.tuners.get.pcconfig.path}"}, method = RequestMethod.GET, produces = "text/xml")
+    public byte[] getPcConfiguration() {
+        return getPcConfiguration.handle(new HashMap<>());
     }
 }

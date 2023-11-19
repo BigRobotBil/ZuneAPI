@@ -28,21 +28,21 @@ public class AlbumController {
         getRelatedArtistAlbums = new GETRelatedArtistAlbums(storage, jaxb);
     }
 
-    @RequestMapping(value = {"/*/*/music/album/{id}/", "/*/*/music/album/{id}"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.album.get.overview.path}/", "${routes.album.get.overview.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getAlbumOverview(@PathVariable String id) {
         Map<ParamEnum, String> params = new HashMap<>();
         params.put(ParamEnum.ID, id);
         return getAlbumOverview.handle(params);
     }
 
-    @RequestMapping(value = {"/*/*/music/album/{id}/relatedAlbums/", "/*/*/music/album/{id}/relatedAlbums"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.album.get.relatedalbums.path}/", "${routes.album.get.relatedalbums.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getRelatedAlbums(@PathVariable String id) {
         Map<ParamEnum, String> params = new HashMap<>();
         params.put(ParamEnum.ID, id);
         return getAlbumOverview.handle(params);
     }
 
-    @RequestMapping(value = {"/*/*/music/album/{id}/relatedAlbums/", "/*/*/music/album/{id}/relatedAlbums"}, method = RequestMethod.GET, produces = "text/xml")
+    @RequestMapping(value = {"${routes.album.get.relatedartists.path}/", "${routes.album.get.relatedartists.path}"}, method = RequestMethod.GET, produces = "text/xml")
     public byte[] getRelatedArtistAlbums(@PathVariable String id) {
         Map<ParamEnum, String> params = new HashMap<>();
         params.put(ParamEnum.ID, id);
