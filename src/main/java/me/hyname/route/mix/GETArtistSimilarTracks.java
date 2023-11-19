@@ -1,8 +1,6 @@
 package me.hyname.route.mix;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,18 +23,15 @@ public class GETArtistSimilarTracks extends AbstractRoute {
     }
 
     @Override
-    public String handle(Map<ParamEnum, String> params) {
+    public byte[] handle(Map<ParamEnum, String> params) {
         String id = params.getOrDefault(ParamEnum.ID, "");
         try {
             ByteArrayOutputStream baos = fetchItem(id);
 
-            return baos.toString(Charset.defaultCharset().name());
+            return baos.toByteArray();
         } catch (JAXBException e) {
             logger.error("Failed to marshal XML information for Artist '" + id + "' when fetching Similar Artists Mix", e);
-            return "";
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Failed to convert binary to XML for Artist '" + id + "' when fetching Similar Artists Mix", e);
-            return "";
+            return errorGen.generateErrorResponse(500, e.getMessage(), "");
         }
     }
 

@@ -24,16 +24,16 @@ public class MixController {
         getSimilarTracks = new GETSimilarTracks(storage, jaxb);
     }
 
-    @RequestMapping(value = "/*/*/artist/{id}/similartracks", method = RequestMethod.GET)
-    public String getArtistSimilarTracks(@PathVariable String id) {
+    @RequestMapping(value = "/*/*/artist/{id}/similartracks", method = RequestMethod.GET, produces = "text/xml")
+    public byte[] getArtistSimilarTracks(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
 
         return getArtistSimilarTracks.handle(methodParams);
     }
 
-    @RequestMapping(value = "/*/*/track/{id}/similarTracks", method = RequestMethod.GET)
-    public String getSimilarTracks(@PathVariable String id) {
+    @RequestMapping(value = "/*/*/track/{id}/similarTracks", method = RequestMethod.GET, produces = "text/xml")
+    public byte[] getSimilarTracks(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
 

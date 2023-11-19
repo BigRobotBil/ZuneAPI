@@ -1,8 +1,6 @@
 package me.hyname.route.featured;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -24,17 +22,14 @@ public class GETNewlyReleasedAlbums extends AbstractRoute {
     }
 
     @Override
-    public String handle(Map<ParamEnum, String> params) {
+    public byte[] handle(Map<ParamEnum, String> params) {
         try {
             ByteArrayOutputStream baos = fetchItem();
 
-            return baos.toString(Charset.defaultCharset().name());
+            return baos.toByteArray();
         } catch (JAXBException e) {
             logger.error("Failed to marshal XML information for Newly Released Albums", e);
-            return "";
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Failed to convert binary to XML for Newly Released Albums", e);
-            return "";
+            return errorGen.generateErrorResponse(500, e.getMessage(), "");
         }
     }
 

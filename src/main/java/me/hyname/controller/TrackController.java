@@ -22,8 +22,8 @@ public class TrackController {
         getTrackOverview = new GETTrackOverview(storage, jaxb);
     }
     
-    @RequestMapping(value = "/*/*/debug/trackoverview/", method = RequestMethod.GET)
-    public String getTrackOverview(@PathVariable String id) {
+    @RequestMapping(value = "/*/*/debug/trackoverview/", method = RequestMethod.GET, produces = "text/xml")
+    public byte[] getTrackOverview(@PathVariable String id) {
         Map<ParamEnum, String> methodParams = new HashMap<>();
         methodParams.put(ParamEnum.ID, id);
 

@@ -1,12 +1,12 @@
 package me.hyname.route.image;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import jakarta.xml.bind.JAXBContext;
 import me.hyname.enums.ParamEnum;
@@ -20,29 +20,26 @@ public class GETArtistThumbnailImage extends AbstractRoute {
     }
 
     @Override
-    public String handle(Map<ParamEnum, String> params) {
+    public byte[] handle(Map<ParamEnum, String> params) {
         String id = params.getOrDefault(ParamEnum.ID, "");
         try {
-            return fetchItem(id);
+            return fetchItem(id).toByteArray();
         } catch (IOException e) {
             logger.error("Failed to capture image information for Artist '" + id + "' when fetching Thumbnail", e);
-            return "";
+            return errorGen.generateErrorResponse(500, e.getMessage(), "");
         }
     }
 
-    private String fetchItem(String id) throws IOException {
-        File file = new File("image/" + id + ".jpg");
-        InputStream is = new FileInputStream(file);
-        OutputStream out = new ByteArrayOutputStream();
+    private ByteArrayOutputStream fetchItem(String id) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = is.read(buffer)) > 0) {
-            out.write(buffer, 0, len);
+        try (FileInputStream fileInStr = new FileInputStream("image/" + id + ".jpg")) {
+            BufferedImage image = ImageIO.read(fileInStr);
+            ImageIO.write(image, "jpg", baos);
+        } catch (IOException e) {
+            logger.error("Failed for id '" + id + "' to read image from cache and/or failed write requested image to ByteArray", e);
         }
 
-        String result = out.toString();
-        is.close();
-        return result.trim();
+        return baos;
     }
 }

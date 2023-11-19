@@ -19,8 +19,8 @@ public class TunersController {
         getpcConfiguration = new GETPCConfiguration(storage, jaxb);
     }
     
-    @RequestMapping(value = "/en-US/ZunePCClient/*/configuration.xml", method = RequestMethod.GET)
-    public String getpcConfiguration() {
+    @RequestMapping(value = "/en-US/ZunePCClient/*/configuration.xml", method = RequestMethod.GET, produces = "text/xml")
+    public byte[] getpcConfiguration() {
         return getpcConfiguration.handle(new HashMap<>());
     }
 }

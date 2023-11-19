@@ -1,8 +1,6 @@
 package me.hyname.route.genre;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,17 +22,14 @@ public class GETGenres extends AbstractRoute {
     }
 
     @Override
-    public String handle(Map<ParamEnum, String> params) {
+    public byte[] handle(Map<ParamEnum, String> params) {
         try {
             ByteArrayOutputStream baos = fetchItem();
 
-            return baos.toString(Charset.defaultCharset().name());
+            return baos.toByteArray();
         } catch (JAXBException e) {
             logger.error("Failed to marshal XML information for Genres", e);
-            return "";
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Failed to convert binary to XML for Genres", e);
-            return "";
+            return errorGen.generateErrorResponse(500, e.getMessage(), "");
         }
     }
 

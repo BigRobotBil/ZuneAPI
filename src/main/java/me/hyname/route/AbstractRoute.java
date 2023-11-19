@@ -15,10 +15,14 @@ public abstract class AbstractRoute {
     protected Storage storage;
     public JAXBContext jaxb;
 
+    protected ErrorMessageGenerator errorGen;
+
     public AbstractRoute(Storage storage, JAXBContext jaxb) {
         this.storage = storage;
         this.jaxb = jaxb;
+
+        errorGen = new ErrorMessageGenerator(jaxb);
     }
 
-    public abstract String handle(Map<ParamEnum, String> params);
+    public abstract byte[] handle(Map<ParamEnum, String> params);
 }

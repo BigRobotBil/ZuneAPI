@@ -1,8 +1,6 @@
 package me.hyname.route.album;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import jakarta.xml.bind.JAXBContext;
@@ -23,18 +21,15 @@ public class GETAlbumOverview extends AbstractRoute {
     }
 
     @Override
-    public String handle(Map<ParamEnum, String> params) {
+    public byte[] handle(Map<ParamEnum, String> params) {
         String id = params.getOrDefault(ParamEnum.ID, "");
         try {
             ByteArrayOutputStream baos = fetchItem(id);
 
-            return baos.toString(Charset.defaultCharset().name());
+            return baos.toByteArray();
         } catch (JAXBException e) {
             logger.error("Failed to marshal XML information for Album '" + id + "' when fetching Overview", e);
-            return "";
-        } catch (UnsupportedEncodingException e) {
-            logger.error("Failed to convert binary to XML for Album '" + id + "' when fetching Overview", e);
-            return "";
+            return errorGen.generateErrorResponse(500, e.getMessage(), "");
         }
     }
 

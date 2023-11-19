@@ -14,8 +14,8 @@ public class GETPCConfiguration extends AbstractRoute {
     }
 
     @Override
-    public String handle(Map<ParamEnum, String> params) {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+    public byte[] handle(Map<ParamEnum, String> params) {
+        String result =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<clientConfiguration xmlns=\"http://schemas.zune.net/ZunePCClient/2008/09\">\n" +
                 "    <targetedClient>PC,v4.8</targetedClient>\n" +
                 "    <documentVersion>0.7</documentVersion>\n" +
@@ -400,5 +400,7 @@ public class GETPCConfiguration extends AbstractRoute {
                 "        </clientTypeMapping>\n" +
                 "    </phoneClientType>\n" +
                 "</clientConfiguration>";
+
+        return result.getBytes();
     }
 }

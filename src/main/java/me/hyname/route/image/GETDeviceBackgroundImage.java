@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -21,37 +20,26 @@ public class GETDeviceBackgroundImage extends AbstractRoute {
     }
 
     @Override
-    public String handle(Map<ParamEnum, String> params) {
+    public byte[] handle(Map<ParamEnum, String> params) {
         String id = params.getOrDefault(ParamEnum.ID, "");
         try {
-            return fetchItem(id).toString();
+            return fetchItem(id).toByteArray();
         } catch (IOException e) {
             logger.error("Failed to capture image information for '" + id + "' when fetching Device Background Image", e);
-            return "";
+            return errorGen.generateErrorResponse(500, e.getMessage(), "");
         }
     }
 
     private ByteArrayOutputStream fetchItem(String id) throws IOException {
-        // File file = new File("image/background/" + id + ".jpg");
-        // InputStream is = new FileInputStream(file);
-        // OutputStream out = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        // byte[] buffer = new byte[1024];
-        // int len;
-        // while ((len = is.read(buffer)) > 0) {
-        //     out.write(buffer, 0, len);
-        // }
-
-        // String result = out.toString();
-        // is.close();
-
-        // return result.trim();
         try (FileInputStream fileInStr = new FileInputStream("image/background/" + id + ".jpg")) {
             BufferedImage image = ImageIO.read(fileInStr);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", baos);
-
-            return baos;
+        } catch (IOException e) {
+            logger.error("Failed for id '" + id + "' to read image from cache and/or failed write requested image to ByteArray", e);
         }
+
+        return baos;
     }
 }
