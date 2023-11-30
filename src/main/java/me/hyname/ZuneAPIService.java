@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.condition.PathPatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -58,7 +57,7 @@ public class ZuneAPIService {
             initialEndpoints.append(methodName + " -> " + ops + " - " + paths + "\n");
         });
 
-        logger.info(initialEndpoints);
+        logger.debug(initialEndpoints);
 
         logger.info("Initialized ZuneAPI Service");
     }
