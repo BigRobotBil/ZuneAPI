@@ -1,17 +1,13 @@
 package me.hyname.route.track;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import me.hyname.enums.ParamEnum;
-import me.hyname.model.Feed;
-import me.hyname.model.Genre;
-import me.hyname.model.GenreInstance;
+import me.hyname.model.Track;
 import me.hyname.route.AbstractRoute;
 import me.hyname.storage.Storage;
 
@@ -40,14 +36,7 @@ public class GETTrackOverview extends AbstractRoute {
         Marshaller marshallerObj = jaxb.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        Feed<GenreInstance> que = new Feed<>();
-        List<GenreInstance> genres = new ArrayList<>();
-
-        for (Genre g : Genre.values()) {
-            genres.add(new GenreInstance(g.id, g.title));
-        }
-
-        que.setEntries(genres);
+        Track que = storage.readTrack(id.toLowerCase());
 
         marshallerObj.marshal(que, baos);
 
